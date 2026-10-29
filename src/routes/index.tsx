@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import hero from "@/assets/hero.png.asset.json";
 import logo from "@/assets/logo.png.asset.json";
 import court1 from "@/assets/court1.jpg";
@@ -32,6 +33,13 @@ function Socials({ size = "h-10 w-10" }: { size?: string }) {
     </div>
   );
 }
+
+// TODO: replace with the academy's real phone number
+const PHONE = "+94770000000";
+const PHONE_LABEL = "+94 77 000 0000";
+
+// Congratulations posts (add image imports here as they're shared on social media)
+const congrats: { img: string; caption: string }[] = [];
 
 const events = [
   { date: "Jan 2026", title: "RKBA Inter-Academy Junior Open", place: "Colombo", img: court4, desc: "Our annual junior tournament across U11–U19 categories." },
@@ -71,10 +79,10 @@ const mission = [
 ];
 
 const coaches = [
-  { role: "Head Coach", name: "Ranthushka Sasindu", creds: ["South Asian Medalist", "Former National Ranked Player", "BWF Coaching Course – Level 1"] },
-  { role: "Assistant Coach", name: "Ramesh Chanaka", creds: ["BWF Disability Coaching – Level 1", "BWF Coaching Course – Level 1", "SLB Coaching Course – Level 1"] },
-  { role: "Assistant Coach & Manager", name: "Surani Wickramasinghe", creds: ["NISS & SLB Coaching – Level 1", "Former National Player", "Former Sri Lanka University Team"] },
-  { role: "Assistant Coach", name: "Chamindu Shihara", creds: ["SLB Level 01 Completed"] },
+  { img: "", role: "Head Coach", name: "Ranthushka Sasindu", creds: ["South Asian Medalist", "Former National Ranked Player", "BWF Coaching Course – Level 1"] },
+  { img: "", role: "Assistant Coach", name: "Ramesh Chanaka", creds: ["BWF Disability Coaching – Level 1", "BWF Coaching Course – Level 1", "SLB Coaching Course – Level 1"] },
+  { img: "", role: "Assistant Coach & Manager", name: "Surani Wickramasinghe", creds: ["NISS & SLB Coaching – Level 1", "Former National Player", "Former Sri Lanka University Team"] },
+  { img: "", role: "Assistant Coach", name: "Chamindu Shihara", creds: ["SLB Level 01 Completed"] },
 ];
 
 const players = [
@@ -92,9 +100,36 @@ function Label({ n, children }: { n: string; children: string }) {
   );
 }
 
+function PhoneIcon() {
+  return <svg viewBox="0 0 24 24" className="relative h-5 w-5" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>;
+}
+
+function useScrollFx() {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const els = document.querySelectorAll<HTMLElement>("section:not(#top) > div > *");
+    els.forEach((el) => el.classList.add("reveal"));
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("reveal-in"); io.unobserve(e.target); } }),
+      { threshold: 0.12 },
+    );
+    els.forEach((el) => io.observe(el));
+    const onScroll = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(h > 0 ? window.scrollY / h : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { io.disconnect(); window.removeEventListener("scroll", onScroll); };
+  }, []);
+  return progress;
+}
+
 function Index() {
+  const progress = useScrollFx();
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <div className="fixed left-0 top-0 z-[60] h-0.5 bg-primary" style={{ width: `${progress * 100}%` }} />
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/50 bg-background/75 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-3">
           <a href="#top" className="shrink-0"><img src={logo.url} alt="RKBA logo" className="h-12 w-12 rounded-full object-cover" /></a>
@@ -206,9 +241,16 @@ function Index() {
           <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">The team behind the wins</h2>
           <div className="mt-14 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
             {coaches.map((c) => (
-              <div key={c.name} className="group bg-background p-8 transition-colors hover:bg-card">
-                <div className="flex h-16 w-16 items-center justify-center bg-primary font-display text-2xl font-extrabold text-primary-foreground">
-                  {c.name.split(" ").map((w) => w[0]).join("")}
+              <div key={c.name} className="group bg-background p-6 transition-colors hover:bg-card">
+                <div className="relative aspect-[4/5] overflow-hidden bg-card">
+                  {c.img ? (
+                    <img src={c.img} alt={c.name} loading="lazy" className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
+                  ) : (
+                    <div className="topo flex h-full w-full items-center justify-center font-display text-7xl font-extrabold text-primary/80">
+                      {c.name.split(" ").map((w) => w[0]).join("")}
+                    </div>
+                  )}
+                  <div className="absolute bottom-0 left-0 h-1 w-0 bg-primary transition-all duration-500 group-hover:w-full" />
                 </div>
                 <div className="mt-6 font-tech text-xs uppercase tracking-widest text-primary">{c.role}</div>
                 <h3 className="mt-1 font-display text-3xl font-bold uppercase leading-tight">{c.name}</h3>
@@ -238,6 +280,28 @@ function Index() {
                 </ul>
               </div>
             ))}
+          </div>
+
+          <div className="mt-20">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <h3 className="font-display text-4xl font-extrabold uppercase">Congratulations <span className="text-primary">wall</span></h3>
+              <a href={socials.instagram} target="_blank" rel="noreferrer" className="font-tech text-xs uppercase tracking-widest text-primary hover:underline">See more on Instagram →</a>
+            </div>
+            <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+              {congrats.length > 0
+                ? congrats.map((c) => (
+                    <figure key={c.img} className="group overflow-hidden border border-border bg-card">
+                      <img src={c.img} alt={c.caption} loading="lazy" className="aspect-square w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                      <figcaption className="p-3 text-xs text-muted-foreground">{c.caption}</figcaption>
+                    </figure>
+                  ))
+                : Array.from({ length: 4 }).map((_, i) => (
+                    <div key={i} className="topo flex aspect-square flex-col items-center justify-center gap-2 border border-dashed border-border text-center">
+                      <span className="font-display text-4xl text-primary">🏆</span>
+                      <span className="font-tech text-xs uppercase tracking-widest text-muted-foreground">Congrats post coming soon</span>
+                    </div>
+                  ))}
+            </div>
           </div>
         </div>
       </section>
@@ -319,12 +383,44 @@ function Index() {
         <a href="#top" className="clip-cut glow mt-8 inline-block bg-primary px-10 py-4 font-tech font-bold uppercase tracking-wider text-primary-foreground">Get in touch</a>
       </section>
 
-      <footer className="border-t border-border py-8">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 font-tech text-xs uppercase tracking-widest text-muted-foreground md:flex-row">
-          <span>© {new Date().getFullYear()} Ranthushka Karunathilaka Badminton Academy</span>
-          <span className="text-primary">Train · Compete · Excel</span>
+      <footer className="topo relative border-t border-border bg-card">
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-2 lg:grid-cols-4">
+          <div className="lg:col-span-2">
+            <div className="flex items-center gap-4">
+              <img src={logo.url} alt="RKBA logo" className="h-16 w-16 rounded-full object-cover" />
+              <div className="font-display text-2xl font-extrabold uppercase leading-none text-primary">
+                Ranthushka Karunathilaka<span className="block font-tech text-xs tracking-[0.3em] text-foreground">Badminton Academy</span>
+              </div>
+            </div>
+            <p className="mt-6 max-w-sm text-sm text-muted-foreground">Developing skilled, disciplined and confident badminton players since 2022.</p>
+            <div className="mt-6"><Socials /></div>
+          </div>
+          <div>
+            <div className="font-tech text-xs uppercase tracking-widest text-primary">Explore</div>
+            <ul className="mt-4 space-y-2 text-sm">
+              {nav.map(([l, h]) => <li key={h}><a href={h} className="text-muted-foreground transition-colors hover:text-primary">{l}</a></li>)}
+            </ul>
+          </div>
+          <div>
+            <div className="font-tech text-xs uppercase tracking-widest text-primary">Call the academy</div>
+            <a href={`tel:${PHONE}`} className="clip-cut glow mt-4 flex items-center gap-3 bg-primary px-5 py-4 font-tech font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:-translate-y-0.5">
+              <PhoneIcon /> {PHONE_LABEL}
+            </a>
+            <p className="mt-3 text-xs text-muted-foreground">Tap to call for training & enrolment.</p>
+          </div>
+        </div>
+        <div className="border-t border-border">
+          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-6 font-tech text-xs uppercase tracking-widest text-muted-foreground md:flex-row">
+            <span>© {new Date().getFullYear()} RKBA. All rights reserved.</span>
+            <span className="text-primary">Train · Compete · Excel</span>
+          </div>
         </div>
       </footer>
+
+      <a href={`tel:${PHONE}`} aria-label="Call the academy" className="glow fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform hover:scale-110">
+        <span className="absolute inset-0 animate-ping rounded-full bg-primary opacity-30" />
+        <PhoneIcon />
+      </a>
     </div>
   );
 }
