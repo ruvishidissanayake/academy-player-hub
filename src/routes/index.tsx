@@ -9,6 +9,10 @@ import court4 from "@/assets/court4.jpg";
 import collab1 from "@/assets/collab1.jpg";
 import collab2 from "@/assets/collab2.jpg";
 import podcast from "@/assets/podcast.jpg";
+import tiktok1 from "@/assets/tiktok-1.mp4.asset.json";
+import tiktok2 from "@/assets/tiktok-2.mp4.asset.json";
+import tiktok3 from "@/assets/tiktok-3.mp4.asset.json";
+import tiktok4 from "@/assets/tiktok-4.mp4.asset.json";
 
 // TODO: replace with the academy's real profile links
 const socials = {
@@ -51,10 +55,10 @@ const events = [
 ];
 
 const tiktoks = [
-  { title: "Footwork drill of the week", img: court3 },
-  { title: "Smash training session", img: hero.url },
-  { title: "Behind the scenes: junior squad", img: court2 },
-  { title: "Tournament day highlights", img: court4 },
+  { title: "Training session", src: tiktok1.url },
+  { title: "On court drills", src: tiktok2.url },
+  { title: "Match practice", src: tiktok3.url },
+  { title: "Academy moments", src: tiktok4.url },
 ];
 
 export const Route = createFileRoute("/")({
