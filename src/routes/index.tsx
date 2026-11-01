@@ -6,6 +6,9 @@ import court1 from "@/assets/court1.jpg";
 import court2 from "@/assets/court2.jpg";
 import court3 from "@/assets/court3.jpg";
 import court4 from "@/assets/court4.jpg";
+import collab1 from "@/assets/collab1.jpg";
+import collab2 from "@/assets/collab2.jpg";
+import podcast from "@/assets/podcast.jpg";
 
 // TODO: replace with the academy's real profile links
 const socials = {
@@ -68,7 +71,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const nav = [["About", "#about"], ["Training", "#training"], ["Coaches", "#coaches"], ["Champions", "#achievements"], ["Events", "#events"], ["Gallery", "#gallery"]];
+const nav = [["About", "#about"], ["Training", "#training"], ["Coaches", "#coaches"], ["Champions", "#achievements"], ["Events", "#events"], ["Partners", "#collab"], ["Gallery", "#gallery"]];
 
 const mission = [
   "Professional training under qualified, experienced coaches",
@@ -326,12 +329,58 @@ function Index() {
         </div>
       </section>
 
+      {/* Elite Shuttle collaboration */}
+      <section id="collab" className="border-t border-border py-28">
+        <div className="mx-auto max-w-7xl px-6">
+          <Label n="06">Collaboration</Label>
+          <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">RKBA <span className="text-primary">×</span> Elite Shuttle</h2>
+          <p className="mt-6 max-w-2xl text-muted-foreground">A special collaboration between RKBA and Elite Shuttle — joint training sessions, friendly matches, media days and a podcast episode celebrating both academies.</p>
+
+          {/* Podcast feature */}
+          <div className="clip-cut mt-14 grid overflow-hidden border border-border bg-card md:grid-cols-2">
+            <div className="group overflow-hidden">
+              <img src={podcast} alt="RKBA × Elite Shuttle podcast recording" loading="lazy" width={1280} height={960} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            </div>
+            <div className="flex flex-col justify-center p-8 md:p-12">
+              <div className="font-tech text-xs uppercase tracking-widest text-primary">Podcast · Episode 01</div>
+              <h3 className="mt-3 font-display text-3xl font-extrabold uppercase leading-tight md:text-4xl">The RKBA × Elite Shuttle Podcast</h3>
+              <p className="mt-4 text-sm text-muted-foreground">Coaches and players from both academies talk training, tournaments and what it takes to reach the national level.</p>
+              <a href={socials.tiktok} target="_blank" rel="noreferrer" className="clip-cut glow mt-8 inline-flex w-fit items-center gap-2 bg-primary px-6 py-3 font-tech text-sm font-bold uppercase tracking-wider text-primary-foreground">
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M8 5v14l11-7z" /></svg> Watch the episode
+              </a>
+            </div>
+          </div>
+
+          {/* Videos + photos */}
+          <div className="mt-6 grid gap-6 md:grid-cols-3">
+            {[
+              { img: collab2, title: "Friendly match highlights", video: true },
+              { img: collab1, title: "Joint training session", video: true },
+              { img: collab1, title: "Media day & team photos", video: false },
+            ].map((c) => (
+              <article key={c.title} className="clip-cut group relative overflow-hidden border border-border bg-card transition-colors hover:border-primary">
+                <img src={c.img} alt={c.title} loading="lazy" className={`w-full object-cover transition-transform duration-700 group-hover:scale-110 ${c.video ? "aspect-[3/4]" : "aspect-[3/4]"}`} />
+                <div className="fade-bottom absolute inset-0" />
+                {c.video && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="glow flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform group-hover:scale-110">
+                      <svg viewBox="0 0 24 24" className="ml-1 h-5 w-5" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                    </span>
+                  </div>
+                )}
+                <div className="absolute inset-x-0 bottom-0 p-5 font-tech text-sm font-semibold uppercase">{c.title}</div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* TikTok */}
       <section id="tiktok" className="border-t border-border py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <Label n="06">On TikTok</Label>
+              <Label n="07">On TikTok</Label>
               <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">Watch us <span className="text-primary">train</span></h2>
             </div>
             <a href={socials.tiktok} target="_blank" rel="noreferrer" className="clip-cut flex items-center gap-2 bg-primary px-6 py-3 font-tech text-sm font-bold uppercase tracking-wider text-primary-foreground"><TikTokIcon /> Follow on TikTok</a>
@@ -356,7 +405,7 @@ function Index() {
       {/* Gallery */}
       <section id="gallery" className="topo border-t border-border py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <Label n="07">Gallery</Label>
+          <Label n="08">Gallery</Label>
           <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">On the <span className="text-primary">courts</span></h2>
           <div className="mt-14 grid auto-rows-[220px] grid-cols-2 gap-4 md:grid-cols-4">
             {[
