@@ -380,7 +380,7 @@ function Index() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <Label n="06">On TikTok</Label>
+              <Label n="07">On TikTok</Label>
               <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">Watch us <span className="text-primary">train</span></h2>
             </div>
             <a href={socials.tiktok} target="_blank" rel="noreferrer" className="clip-cut flex items-center gap-2 bg-primary px-6 py-3 font-tech text-sm font-bold uppercase tracking-wider text-primary-foreground"><TikTokIcon /> Follow on TikTok</a>
@@ -405,7 +405,7 @@ function Index() {
       {/* Gallery */}
       <section id="gallery" className="topo border-t border-border py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <Label n="07">Gallery</Label>
+          <Label n="08">Gallery</Label>
           <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">On the <span className="text-primary">courts</span></h2>
           <div className="mt-14 grid auto-rows-[220px] grid-cols-2 gap-4 md:grid-cols-4">
             {[
