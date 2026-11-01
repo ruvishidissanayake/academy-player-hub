@@ -13,6 +13,10 @@ import tiktok1 from "@/assets/tiktok-1.mp4.asset.json";
 import tiktok2 from "@/assets/tiktok-2.mp4.asset.json";
 import tiktok3 from "@/assets/tiktok-3.mp4.asset.json";
 import tiktok4 from "@/assets/tiktok-4.mp4.asset.json";
+import tiktokPoster1 from "@/assets/tiktok-poster-1.jpg.asset.json";
+import tiktokPoster2 from "@/assets/tiktok-poster-2.jpg.asset.json";
+import tiktokPoster3 from "@/assets/tiktok-poster-3.jpg.asset.json";
+import tiktokPoster4 from "@/assets/tiktok-poster-4.jpg.asset.json";
 
 // TODO: replace with the academy's real profile links
 const socials = {
@@ -55,10 +59,10 @@ const events = [
 ];
 
 const tiktoks = [
-  { title: "Training session", src: tiktok1.url },
-  { title: "On court drills", src: tiktok2.url },
-  { title: "Match practice", src: tiktok3.url },
-  { title: "Academy moments", src: tiktok4.url },
+  { title: "Training session", src: tiktok1.url, poster: tiktokPoster1.url },
+  { title: "On court drills", src: tiktok2.url, poster: tiktokPoster2.url },
+  { title: "Match practice", src: tiktok3.url, poster: tiktokPoster3.url },
+  { title: "Academy moments", src: tiktok4.url, poster: tiktokPoster4.url },
 ];
 
 export const Route = createFileRoute("/")({
