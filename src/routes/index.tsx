@@ -6,6 +6,9 @@ import court1 from "@/assets/court1.jpg";
 import court2 from "@/assets/court2.jpg";
 import court3 from "@/assets/court3.jpg";
 import court4 from "@/assets/court4.jpg";
+import collab1 from "@/assets/collab1.jpg";
+import collab2 from "@/assets/collab2.jpg";
+import podcast from "@/assets/podcast.jpg";
 
 // TODO: replace with the academy's real profile links
 const socials = {
@@ -68,7 +71,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const nav = [["About", "#about"], ["Training", "#training"], ["Coaches", "#coaches"], ["Champions", "#achievements"], ["Events", "#events"], ["Gallery", "#gallery"]];
+const nav = [["About", "#about"], ["Training", "#training"], ["Coaches", "#coaches"], ["Champions", "#achievements"], ["Events", "#events"], ["Partners", "#collab"], ["Gallery", "#gallery"]];
 
 const mission = [
   "Professional training under qualified, experienced coaches",
