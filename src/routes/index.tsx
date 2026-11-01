@@ -391,18 +391,31 @@ function Index() {
           </div>
           <div className="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4">
             {tiktoks.map((v) => (
-              <a key={v.title} href={socials.tiktok} target="_blank" rel="noreferrer" className="group relative block aspect-[9/16] overflow-hidden border border-border">
-                <img src={v.img} alt={v.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="fade-bottom absolute inset-0" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="glow flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform group-hover:scale-110">
+              <div
+                key={v.title}
+                className="group relative block aspect-[9/16] overflow-hidden border border-border transition-colors hover:border-primary"
+                onMouseEnter={(e) => { const vid = e.currentTarget.querySelector("video"); vid?.play().catch(() => {}); }}
+                onMouseLeave={(e) => { const vid = e.currentTarget.querySelector("video"); vid?.pause(); }}
+              >
+                <video
+                  src={v.src}
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="fade-bottom pointer-events-none absolute inset-0" />
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                  <span className="glow flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground transition-all duration-500 group-hover:scale-125 group-hover:opacity-0">
                     <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
                   </span>
                 </div>
-                <div className="absolute inset-x-0 bottom-0 p-4 font-tech text-sm font-semibold uppercase">{v.title}</div>
-              </a>
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 font-tech text-sm font-semibold uppercase transition-opacity duration-500 group-hover:opacity-0">{v.title}</div>
+              </div>
             ))}
           </div>
+          <p className="mt-6 text-center font-tech text-xs uppercase tracking-widest text-muted-foreground">Hover a clip to play · More on our TikTok</p>
         </div>
       </section>
 
