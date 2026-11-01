@@ -403,6 +403,7 @@ function Index() {
               >
                 <video
                   src={v.src}
+                  poster={v.poster}
                   muted
                   loop
                   playsInline
