@@ -9,6 +9,14 @@ import court4 from "@/assets/court4.jpg";
 import collab1 from "@/assets/collab1.jpg";
 import collab2 from "@/assets/collab2.jpg";
 import podcast from "@/assets/podcast.jpg";
+import tiktok1 from "@/assets/tiktok-1.mp4.asset.json";
+import tiktok2 from "@/assets/tiktok-2.mp4.asset.json";
+import tiktok3 from "@/assets/tiktok-3.mp4.asset.json";
+import tiktok4 from "@/assets/tiktok-4.mp4.asset.json";
+import tiktokPoster1 from "@/assets/tiktok-poster-1.jpg.asset.json";
+import tiktokPoster2 from "@/assets/tiktok-poster-2.jpg.asset.json";
+import tiktokPoster3 from "@/assets/tiktok-poster-3.jpg.asset.json";
+import tiktokPoster4 from "@/assets/tiktok-poster-4.jpg.asset.json";
 
 // TODO: replace with the academy's real profile links
 const socials = {
@@ -51,10 +59,10 @@ const events = [
 ];
 
 const tiktoks = [
-  { title: "Footwork drill of the week", img: court3 },
-  { title: "Smash training session", img: hero.url },
-  { title: "Behind the scenes: junior squad", img: court2 },
-  { title: "Tournament day highlights", img: court4 },
+  { title: "Training session", src: tiktok1.url, poster: tiktokPoster1.url },
+  { title: "On court drills", src: tiktok2.url, poster: tiktokPoster2.url },
+  { title: "Match practice", src: tiktok3.url, poster: tiktokPoster3.url },
+  { title: "Academy moments", src: tiktok4.url, poster: tiktokPoster4.url },
 ];
 
 export const Route = createFileRoute("/")({
@@ -387,18 +395,26 @@ function Index() {
           </div>
           <div className="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4">
             {tiktoks.map((v) => (
-              <a key={v.title} href={socials.tiktok} target="_blank" rel="noreferrer" className="group relative block aspect-[9/16] overflow-hidden border border-border">
-                <img src={v.img} alt={v.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="fade-bottom absolute inset-0" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="glow flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform group-hover:scale-110">
-                    <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-                  </span>
-                </div>
-                <div className="absolute inset-x-0 bottom-0 p-4 font-tech text-sm font-semibold uppercase">{v.title}</div>
-              </a>
+              <div
+                key={v.title}
+                className="group relative block aspect-[9/16] overflow-hidden border border-border transition-colors hover:border-primary"
+              >
+                <video
+                  src={v.src}
+                  poster={v.poster}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="fade-bottom pointer-events-none absolute inset-0" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 font-tech text-sm font-semibold uppercase">{v.title}</div>
+              </div>
             ))}
           </div>
+          <p className="mt-6 text-center font-tech text-xs uppercase tracking-widest text-muted-foreground">More on our TikTok</p>
         </div>
       </section>
 
