@@ -27,6 +27,9 @@ import congrats7 from "@/assets/congrats-7.jpg.asset.json";
 import congrats8 from "@/assets/congrats-8.jpg.asset.json";
 import congrats9 from "@/assets/congrats-9.jpg.asset.json";
 import congrats10 from "@/assets/congrats-10.jpg.asset.json";
+import congrats11 from "@/assets/congrats-11.jpg.asset.json";
+import congrats12 from "@/assets/congrats-12.jpg.asset.json";
+import congrats13 from "@/assets/congrats-13.jpg.asset.json";
 
 // TODO: replace with the academy's real profile links
 const socials = {
@@ -71,6 +74,9 @@ const congrats: { img: string; caption: string }[] = [
   { img: congrats8.url, caption: "Congratulations!" },
   { img: congrats9.url, caption: "Congratulations!" },
   { img: congrats10.url, caption: "Congratulations!" },
+  { img: congrats11.url, caption: "Inuki Wijesekara – U13 Girls Singles Champion, North Central Province All Island Open 2026" },
+  { img: congrats12.url, caption: "Inuki Wijesekara – U13 Singles 2nd Runner-up & Doubles Champions, MBA All Island Open 2026" },
+  { img: congrats13.url, caption: "Inuki Wijesekara – U13 Singles 2nd Runner-up & Doubles 1st Runner-up, NWPBA Open 2026" },
 ];
 
 const events = [
