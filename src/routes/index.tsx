@@ -17,6 +17,16 @@ import tiktokPoster1 from "@/assets/tiktok-poster-1.jpg.asset.json";
 import tiktokPoster2 from "@/assets/tiktok-poster-2.jpg.asset.json";
 import tiktokPoster3 from "@/assets/tiktok-poster-3.jpg.asset.json";
 import tiktokPoster4 from "@/assets/tiktok-poster-4.jpg.asset.json";
+import congrats1 from "@/assets/congrats-1.jpg.asset.json";
+import congrats2 from "@/assets/congrats-2.jpg.asset.json";
+import congrats3 from "@/assets/congrats-3.jpg.asset.json";
+import congrats4 from "@/assets/congrats-4.jpg.asset.json";
+import congrats5 from "@/assets/congrats-5.jpg.asset.json";
+import congrats6 from "@/assets/congrats-6.jpg.asset.json";
+import congrats7 from "@/assets/congrats-7.jpg.asset.json";
+import congrats8 from "@/assets/congrats-8.jpg.asset.json";
+import congrats9 from "@/assets/congrats-9.jpg.asset.json";
+import congrats10 from "@/assets/congrats-10.jpg.asset.json";
 
 // TODO: replace with the academy's real profile links
 const socials = {
@@ -49,8 +59,19 @@ function Socials({ size = "h-10 w-10" }: { size?: string }) {
 const PHONE = "+94770000000";
 const PHONE_LABEL = "+94 77 000 0000";
 
-// Congratulations posts (add image imports here as they're shared on social media)
-const congrats: { img: string; caption: string }[] = [];
+// Congratulations posts (add new images here as they're shared on social media)
+const congrats: { img: string; caption: string }[] = [
+  { img: congrats1.url, caption: "Congratulations!" },
+  { img: congrats2.url, caption: "Congratulations!" },
+  { img: congrats3.url, caption: "Congratulations!" },
+  { img: congrats4.url, caption: "Congratulations!" },
+  { img: congrats5.url, caption: "Congratulations!" },
+  { img: congrats6.url, caption: "Congratulations!" },
+  { img: congrats7.url, caption: "Congratulations!" },
+  { img: congrats8.url, caption: "Congratulations!" },
+  { img: congrats9.url, caption: "Congratulations!" },
+  { img: congrats10.url, caption: "Congratulations!" },
+];
 
 const events = [
   { date: "Jan 2026", title: "RKBA Inter-Academy Junior Open", place: "Colombo", img: court4, desc: "Our annual junior tournament across U11–U19 categories." },
@@ -298,20 +319,14 @@ function Index() {
               <h3 className="font-display text-4xl font-extrabold uppercase">Congratulations <span className="text-primary">wall</span></h3>
               <a href={socials.instagram} target="_blank" rel="noreferrer" className="font-tech text-xs uppercase tracking-widest text-primary hover:underline">See more on Instagram →</a>
             </div>
-            <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-              {congrats.length > 0
-                ? congrats.map((c) => (
-                    <figure key={c.img} className="group overflow-hidden border border-border bg-card">
-                      <img src={c.img} alt={c.caption} loading="lazy" className="aspect-square w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                      <figcaption className="p-3 text-xs text-muted-foreground">{c.caption}</figcaption>
-                    </figure>
-                  ))
-                : Array.from({ length: 4 }).map((_, i) => (
-                    <div key={i} className="topo flex aspect-square flex-col items-center justify-center gap-2 border border-dashed border-border text-center">
-                      <span className="font-display text-4xl text-primary">🏆</span>
-                      <span className="font-tech text-xs uppercase tracking-widest text-muted-foreground">Congrats post coming soon</span>
-                    </div>
-                  ))}
+            <div className="congrats-strip mt-8 overflow-hidden border-y border-border py-4 [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]">
+              <div className="animate-congrats flex w-max gap-4 hover:[animation-play-state:paused]">
+                {[...congrats, ...congrats].map((c, i) => (
+                  <figure key={`${c.img}-${i}`} className="group shrink-0 overflow-hidden border border-border bg-card">
+                    <img src={c.img} alt={c.caption} loading="lazy" className="h-72 w-auto object-cover transition-transform duration-700 group-hover:scale-105 md:h-80" />
+                  </figure>
+                ))}
+              </div>
             </div>
           </div>
         </div>
