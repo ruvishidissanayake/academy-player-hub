@@ -8,7 +8,7 @@ import court3 from "@/assets/court3.jpg";
 import court4 from "@/assets/court4.jpg";
 import collab1 from "@/assets/collab1.jpg";
 import collab2 from "@/assets/collab2.jpg";
-import podcast from "@/assets/podcast.jpg";
+import podcast from "@/assets/podcast-episode-1.jpg.asset.json";
 import tiktok1 from "@/assets/tiktok-1.mp4.asset.json";
 import tiktok2 from "@/assets/tiktok-2.mp4.asset.json";
 import tiktok3 from "@/assets/tiktok-3.mp4.asset.json";
@@ -368,13 +368,13 @@ function Index() {
           {/* Podcast feature */}
           <div className="clip-cut mt-14 grid overflow-hidden border border-border bg-card md:grid-cols-2">
             <div className="group overflow-hidden">
-              <img src={podcast} alt="RKBA × Elite Shuttle podcast recording" loading="lazy" width={1280} height={960} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <img src={podcast.url} alt="The Badminton Podcast — Episode 01, RKBA x EliteShuttler thumbnail" loading="lazy" width={1280} height={960} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
             <div className="flex flex-col justify-center p-8 md:p-12">
               <div className="font-tech text-xs uppercase tracking-widest text-primary">Podcast · Episode 01</div>
               <h3 className="mt-3 font-display text-3xl font-extrabold uppercase leading-tight md:text-4xl">The RKBA × Elite Shuttle Podcast</h3>
               <p className="mt-4 text-sm text-muted-foreground">Coaches and players from both academies talk training, tournaments and what it takes to reach the national level.</p>
-              <a href={socials.tiktok} target="_blank" rel="noreferrer" className="clip-cut glow mt-8 inline-flex w-fit items-center gap-2 bg-primary px-6 py-3 font-tech text-sm font-bold uppercase tracking-wider text-primary-foreground">
+              <a href="https://youtu.be/9mA8gtlc2wo?si=otW1WHZ-sCDxgSdV" target="_blank" rel="noreferrer" className="clip-cut glow mt-8 inline-flex w-fit items-center gap-2 bg-primary px-6 py-3 font-tech text-sm font-bold uppercase tracking-wider text-primary-foreground">
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M8 5v14l11-7z" /></svg> Watch the episode
               </a>
             </div>
