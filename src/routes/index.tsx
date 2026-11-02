@@ -371,9 +371,11 @@ function Index() {
               <img src={podcast.url} alt="The Badminton Podcast — Episode 01, RKBA x EliteShuttler thumbnail" loading="lazy" width={1280} height={960} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
             <div className="flex flex-col justify-center p-8 md:p-12">
-              <div className="font-tech text-xs uppercase tracking-widest text-primary">Podcast · Episode 01</div>
+              <div className="font-tech text-xs uppercase tracking-widest text-primary">Eliteshuttler Podcast · Episode 01</div>
               <h3 className="mt-3 font-display text-3xl font-extrabold uppercase leading-tight md:text-4xl">The RKBA × Elite Shuttle Podcast</h3>
-              <p className="mt-4 text-sm text-muted-foreground">Coaches and players from both academies talk training, tournaments and what it takes to reach the national level.</p>
+              <p className="mt-4 font-tech text-xs text-primary">12 October 2026</p>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Brian Gomez, co-founder of Eliteshuttler, sits down with Ranthushka Karunathilaka — a former Sri Lankan national champion and ranked international badminton player, now coaching the next generation.</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">From challenges on court to lessons beyond it, Ranthushka shares his journey, his perspective on the game, and why everyone should give badminton a try — and how it can change our lives.</p>
               <a href="https://youtu.be/9mA8gtlc2wo?si=otW1WHZ-sCDxgSdV" target="_blank" rel="noreferrer" className="clip-cut glow mt-8 inline-flex w-fit items-center gap-2 bg-primary px-6 py-3 font-tech text-sm font-bold uppercase tracking-wider text-primary-foreground">
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M8 5v14l11-7z" /></svg> Watch the episode
               </a>

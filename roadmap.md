@@ -3,4 +3,6 @@
 - [x] Add Elite Shuttle collaboration section (podcast, videos, photos)
 - [x] Add 4 uploaded videos to "Watch us train" section
 - [x] Make videos autoplay without cursor
-- [ ] Awaiting from user: real social links, phone number, coach photos, real event/collab photos, podcast link
+- [ ] Verify podcast link and update episode description
+- [ ] Compare new congratulations posters and add only unique images
+- [ ] Awaiting from user: real social links, phone number, coach photos, real event/collab photos
