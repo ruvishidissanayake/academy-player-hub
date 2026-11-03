@@ -30,6 +30,16 @@ import congrats10 from "@/assets/congrats-10.jpg.asset.json";
 import congrats11 from "@/assets/congrats-11.jpg.asset.json";
 import congrats12 from "@/assets/congrats-12.jpg.asset.json";
 import congrats13 from "@/assets/congrats-13.jpg.asset.json";
+import congrats14 from "@/assets/congrats-14.jpg.asset.json";
+import congrats15 from "@/assets/congrats-15.jpg.asset.json";
+import congrats16 from "@/assets/congrats-16.jpg.asset.json";
+import congrats17 from "@/assets/congrats-17.jpg.asset.json";
+import congrats18 from "@/assets/congrats-18.jpg.asset.json";
+import congrats19 from "@/assets/congrats-19.jpg.asset.json";
+import congrats20 from "@/assets/congrats-20.jpg.asset.json";
+import congrats21 from "@/assets/congrats-21.jpg.asset.json";
+import congrats22 from "@/assets/congrats-22.jpg.asset.json";
+import congrats23 from "@/assets/congrats-23.jpg.asset.json";
 
 // TODO: replace with the academy's real profile links
 const socials = {
@@ -77,6 +87,16 @@ const congrats: { img: string; caption: string }[] = [
   { img: congrats11.url, caption: "Inuki Wijesekara – U13 Girls Singles Champion, North Central Province All Island Open 2026" },
   { img: congrats12.url, caption: "Inuki Wijesekara – U13 Singles 2nd Runner-up & Doubles Champions, MBA All Island Open 2026" },
   { img: congrats13.url, caption: "Inuki Wijesekara – U13 Singles 2nd Runner-up & Doubles 1st Runner-up, NWPBA Open 2026" },
+  { img: congrats14.url, caption: "Senudi Sohansa – U19 Girls' Singles Semi-Finalist, NWPA Open Championship 2026" },
+  { img: congrats15.url, caption: "Inuki Wijesekara – U13 Girls' Singles & Doubles 2nd Runner-Up, 73rd National Badminton Championship 2025" },
+  { img: congrats16.url, caption: "Sithuli Ranasinghe – Women's Open Singles 2nd Runner-Up, 73rd National Badminton Championship 2025" },
+  { img: congrats17.url, caption: "Hiruka Sahanmith – U19 Boys' Singles 1st Runner-Up, 73rd National Badminton Championship 2025" },
+  { img: congrats18.url, caption: "Senudi – U19 Girls' Singles 1st Runner-Up, 73rd National Badminton Championship 2025" },
+  { img: congrats19.url, caption: "Maneth Wijegunawardana – U19 Boys' Singles 2nd Runner-Up, Kandy All Island Badminton Championship 2025" },
+  { img: congrats20.url, caption: "Inuki Wijesekara – U13 Girls' Singles & Doubles Champion, Kandy All Island Badminton Championship 2025" },
+  { img: congrats21.url, caption: "Wedhaka Gomes – U17 Boys' Singles 2nd Runner-Up & Doubles 1st Runner-Up, 53rd AVI Junior National Championship Finals 2025" },
+  { img: congrats22.url, caption: "Senudi Sohansa – U17 Girls' Singles 2nd Runner-Up & Most Upcoming Player, 53rd AVI Junior National Championship Finals 2025" },
+  { img: congrats23.url, caption: "Inuki Wijesekara – U13 Girls' Singles 2nd Runner-Up, 53rd AVI Junior National Championship Finals 2025" },
 ];
 
 const events = [
@@ -124,10 +144,60 @@ const coaches = [
 ];
 
 const players = [
-  { name: "Inuki Wijesekara", tag: "U13", wins: ["U13 Girls' Singles & Doubles Champion – Southern Open All-Island 2026", "2nd Runner-Up U13 Singles & Doubles – 73rd National Championship 2025", "U13 Singles & Doubles Champion – Kandy All Island 2025", "2nd Runner-Up U13 Singles – 53rd AVI Junior Nationals 2025"] },
-  { name: "Maneth Wijegunawardana", tag: "U19", wins: ["U19 Boys' Singles Champion – Southern Open All-Island 2026", "Member – Asian Junior Championship 2025 (Indonesia)", "1st Runner-Up U19 Singles – PDBA All Island Open 2025", "U19 Boys' Doubles Champion – MBA All Island Open 2025"] },
-  { name: "Sithuli Ranasinghe", tag: "U17 / Open", wins: ["2nd Runner-Up Women's Open Singles – 73rd National Championship 2025", "2nd Runner-Up U17 Singles – Sri Lanka Junior International 2025", "Member – Asian Junior Championship 2025 (Indonesia)", "U17 Girls' Singles Champion – PDBA All Island Open 2025"] },
-  { name: "Senudi Sohansa", tag: "U19", wins: ["1st Runner-Up U19 Singles – 73rd National Championship 2025", "Most Upcoming Player – AVI Junior Nationals 2025", "2nd Runner-Up U17 Singles – AVI Junior Nationals 2025", "U19 Singles Semi Finalist – NWPA Open 2026"] },
+  {
+    name: "Inuki Wijesekara", tag: "U13", wins: [
+      "Under-13 Girls' Singles & Doubles Champion – Premasiri Halambage Memorial Southern Open All-Island Level 01 Badminton Championship 2026",
+      "Under-13 Singles 2nd Runner-Up & Doubles 1st Runner-Up – NWPBA Open Level 01 Badminton Championship 2026",
+      "2nd Runner-Up – Under-13 Singles & Doubles, 73rd National Badminton Championship 2025",
+      "Under-13 Girls' Singles & Doubles Champion – Kandy All Island Badminton Championship 2025",
+      "2nd Runner-Up – Under-13 Girls' Singles, 53rd AVI Junior National Championship Finals 2025",
+    ],
+  },
+  {
+    name: "Maneth Wijegunawardana", tag: "U19", wins: [
+      "Under-19 Boys' Singles Champion – Premasiri Halambage Memorial Southern Open All-Island Level 01 Badminton Championship 2026",
+      "Member – Asian Junior Badminton Championship 2025 (Indonesia)",
+      "1st Runner-Up – Under-19 Boys' Singles, PDBA All Island Open Badminton Championship 2025",
+      "Under-19 Boys' Doubles Champion – MBA All Island Open Championship 2025",
+      "2nd Runner-Up – Under-19 Boys' Singles, Summer Season Open Championship 2025",
+    ],
+  },
+  {
+    name: "Sithuli Ranasinghe", tag: "U17 / Open", wins: [
+      "2nd Runner-Up – Women's Open Singles, 73rd National Badminton Championship 2025",
+      "Under-17 Girls' Singles 2nd Runner-Up – Sri Lanka Junior International Series 2025",
+      "Member – Asian Junior Badminton Championship 2025 (Indonesia)",
+      "Member – U17 Selection Trials for Asian Youth Games 2025 (Bahrain)",
+      "Under-17 Girls' Singles Champion – PDBA All Island Open Championship 2025",
+    ],
+  },
+  {
+    name: "Senudi Sohansa", tag: "U17 / U19", wins: [
+      "Under-19 Girls' Singles Semi-Finalist – NWPA Open Championship 2026",
+      "1st Runner-Up – Under-19 Girls' Singles, 73rd National Badminton Championship 2025",
+      "Under-17 Girls' Singles 2nd Runner-Up – AVI Junior National Championship Finals 2025",
+      "Most Upcoming Player of the Tournament – AVI Junior National Championship Finals 2025",
+      "Under-19 Girls' Singles 2nd Runner-Up – North Central Province All Island Championship 2025",
+    ],
+  },
+  {
+    name: "Wedhaka Gomes", tag: "U17 / U19", wins: [
+      "Under-17 Boys' Singles 2nd Runner-Up & Doubles 1st Runner-Up – AVI Junior National Championship Finals 2025",
+      "Under-17 Boys' Singles Champion – Western Province All Island Open Championship 2025",
+      "Runner-Up – Sri Lanka Schools Badminton Association Under-19 Championship 2025",
+      "Under-17 Boys' Champion – Summer Season Open Championship 2025",
+      "1st Runner-Up – Under-17 Boys' Singles, SPBA All Island Open Championship 2025",
+      "1st Runner-Up – Under-17 Boys' Singles, EPBA All Island Badminton Championship 2025",
+    ],
+  },
+  {
+    name: "Hiruka Sahanmith", tag: "U19 / Open", wins: [
+      "1st Runner-Up – Under-19 Boys' Singles, 73rd National Badminton Championship 2025",
+      "Under-19 Boys' Singles 2nd Runner-Up – PDBA All Island Open Badminton Championship 2025",
+      "Champion – Summer Season 2025 Open Men's Singles",
+      "1st Runner-Up – Under-19 Boys' Singles, SPBA All Island Open Badminton Championship 2025",
+    ],
+  },
 ];
 
 function Label({ n, children }: { n: string; children: string }) {
@@ -310,7 +380,7 @@ function Index() {
             {players.map((p) => (
               <div key={p.name} className="clip-cut border border-border bg-card p-8 transition-colors hover:border-primary">
                 <div className="flex items-start justify-between gap-4">
-                  <h3 className="font-display text-3xl font-extrabold uppercase">{p.name}</h3>
+                  <h3 className="min-w-0 break-words font-display text-3xl font-extrabold uppercase">{p.name}</h3>
                   <span className="shrink-0 bg-primary px-3 py-1 font-tech text-xs font-bold text-primary-foreground">{p.tag}</span>
                 </div>
                 <ul className="mt-6 space-y-3">
@@ -326,7 +396,7 @@ function Index() {
               <a href={socials.instagram} target="_blank" rel="noreferrer" className="font-tech text-xs uppercase tracking-widest text-primary hover:underline">See more on Instagram →</a>
             </div>
             <div className="congrats-strip mt-8 overflow-hidden border-y border-border py-4 [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]">
-              <div className="animate-congrats flex w-max gap-4 hover:[animation-play-state:paused]">
+              <div className="animate-congrats flex w-max gap-4 pr-4 hover:[animation-play-state:paused]">
                 {[...congrats, ...congrats].map((c, i) => (
                   <figure key={`${c.img}-${i}`} className="group shrink-0 overflow-hidden border border-border bg-card">
                     <img src={c.img} alt={c.caption} loading="lazy" className="h-72 w-auto object-cover transition-transform duration-700 group-hover:scale-105 md:h-80" />
