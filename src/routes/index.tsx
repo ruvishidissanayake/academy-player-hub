@@ -8,6 +8,8 @@ import court3 from "@/assets/court3.jpg";
 import court4 from "@/assets/court4.jpg";
 import collab1 from "@/assets/collab1.jpg";
 import collab2 from "@/assets/collab2.jpg";
+import collabVideo from "@/assets/collab-partnership.mp4.asset.json";
+import collabVideoPoster from "@/assets/collab-partnership-poster.jpg.asset.json";
 import podcast from "@/assets/podcast-episode-1.jpg.asset.json";
 import tiktok1 from "@/assets/tiktok-1.mp4.asset.json";
 import tiktok2 from "@/assets/tiktok-2.mp4.asset.json";
@@ -40,6 +42,10 @@ import congrats20 from "@/assets/congrats-20.jpg.asset.json";
 import congrats21 from "@/assets/congrats-21.jpg.asset.json";
 import congrats22 from "@/assets/congrats-22.jpg.asset.json";
 import congrats23 from "@/assets/congrats-23.jpg.asset.json";
+import congrats24 from "@/assets/congrats-24.jpg.asset.json";
+import congrats25 from "@/assets/congrats-25.jpg.asset.json";
+import congrats26 from "@/assets/congrats-26.jpg.asset.json";
+import congrats27 from "@/assets/congrats-27.jpg.asset.json";
 
 // TODO: replace with the academy's real profile links
 const socials = {
