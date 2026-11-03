@@ -5,4 +5,5 @@
 - [x] Make videos autoplay without cursor
 - [ ] Verify podcast link and update episode description
 - [ ] Compare new congratulations posters and add only unique images
+- [ ] Update all six champions with the supplied achievement list
 - [ ] Awaiting from user: real social links, phone number, coach photos, real event/collab photos
