@@ -80,6 +80,10 @@ const PHONE_LABEL = "+94 77 000 0000";
 
 // Congratulations posts (add new images here as they're shared on social media)
 const congrats: { img: string; caption: string }[] = [
+  { img: congrats24.url, caption: "Sithuli Ranasinghe – Open Women's Singles Champion, Kandy All Island Open 2026" },
+  { img: congrats25.url, caption: "Yenadi Yuhansa Silva & Methuli Mendis – U19 Girls' Doubles Runners-Up & Women's Doubles Semi-Finalists, Kandy All Island Open 2026" },
+  { img: congrats26.url, caption: "Wedhaka Gomes – U19 Boys' Singles Runner-Up, Kandy All Island Open 2026" },
+  { img: congrats27.url, caption: "Inuki Sihathna Wijesekara – U13 Girls' Singles Champion & U13 Girls' Doubles 2nd Runner-Up, Kandy All Island Open 2026" },
   { img: congrats1.url, caption: "Congratulations!" },
   { img: congrats2.url, caption: "Congratulations!" },
   { img: congrats3.url, caption: "Congratulations!" },
