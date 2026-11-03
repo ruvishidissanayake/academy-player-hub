@@ -8,6 +8,8 @@ import court3 from "@/assets/court3.jpg";
 import court4 from "@/assets/court4.jpg";
 import collab1 from "@/assets/collab1.jpg";
 import collab2 from "@/assets/collab2.jpg";
+import collabVideo from "@/assets/collab-partnership.mp4.asset.json";
+import collabVideoPoster from "@/assets/collab-partnership-poster.jpg.asset.json";
 import podcast from "@/assets/podcast-episode-1.jpg.asset.json";
 import tiktok1 from "@/assets/tiktok-1.mp4.asset.json";
 import tiktok2 from "@/assets/tiktok-2.mp4.asset.json";
@@ -40,6 +42,10 @@ import congrats20 from "@/assets/congrats-20.jpg.asset.json";
 import congrats21 from "@/assets/congrats-21.jpg.asset.json";
 import congrats22 from "@/assets/congrats-22.jpg.asset.json";
 import congrats23 from "@/assets/congrats-23.jpg.asset.json";
+import congrats24 from "@/assets/congrats-24.jpg.asset.json";
+import congrats25 from "@/assets/congrats-25.jpg.asset.json";
+import congrats26 from "@/assets/congrats-26.jpg.asset.json";
+import congrats27 from "@/assets/congrats-27.jpg.asset.json";
 
 // TODO: replace with the academy's real profile links
 const socials = {
@@ -74,6 +80,10 @@ const PHONE_LABEL = "+94 77 000 0000";
 
 // Congratulations posts (add new images here as they're shared on social media)
 const congrats: { img: string; caption: string }[] = [
+  { img: congrats24.url, caption: "Sithuli Ranasinghe – Open Women's Singles Champion, Kandy All Island Open 2026" },
+  { img: congrats25.url, caption: "Yenadi Yuhansa Silva & Methuli Mendis – U19 Girls' Doubles Runners-Up & Women's Doubles Semi-Finalists, Kandy All Island Open 2026" },
+  { img: congrats26.url, caption: "Wedhaka Gomes – U19 Boys' Singles Runner-Up, Kandy All Island Open 2026" },
+  { img: congrats27.url, caption: "Inuki Sihathna Wijesekara – U13 Girls' Singles Champion & U13 Girls' Doubles 2nd Runner-Up, Kandy All Island Open 2026" },
   { img: congrats1.url, caption: "Congratulations!" },
   { img: congrats2.url, caption: "Congratulations!" },
   { img: congrats3.url, caption: "Congratulations!" },
@@ -451,6 +461,16 @@ function Index() {
               </a>
             </div>
           </div>
+
+          {/* Partnership day video */}
+          <article className="clip-cut group relative mt-6 overflow-hidden border border-border bg-card transition-colors hover:border-primary">
+            <video src={collabVideo.url} poster={collabVideoPoster.url} autoPlay muted loop playsInline preload="auto" className="aspect-video w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="fade-bottom pointer-events-none absolute inset-0" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5">
+              <div className="font-tech text-xs uppercase tracking-widest text-primary">Partnership day</div>
+              <div className="font-tech text-sm font-semibold uppercase md:text-base">The day RKBA × Elite Shuttle joined forces</div>
+            </div>
+          </article>
 
           {/* Videos + photos */}
           <div className="mt-6 grid gap-6 md:grid-cols-3">
