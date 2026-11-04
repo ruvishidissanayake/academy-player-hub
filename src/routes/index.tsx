@@ -46,6 +46,16 @@ import congrats24 from "@/assets/congrats-24.jpg.asset.json";
 import congrats25 from "@/assets/congrats-25.jpg.asset.json";
 import congrats26 from "@/assets/congrats-26.jpg.asset.json";
 import congrats27 from "@/assets/congrats-27.jpg.asset.json";
+import newyear1 from "@/assets/newyear-01.jpg.asset.json";
+import newyear2 from "@/assets/newyear-02.jpg.asset.json";
+import newyear3 from "@/assets/newyear-03.jpg.asset.json";
+import newyear4 from "@/assets/newyear-04.jpg.asset.json";
+import newyear5 from "@/assets/newyear-05.jpg.asset.json";
+import newyear6 from "@/assets/newyear-06.jpg.asset.json";
+import newyear7 from "@/assets/newyear-07.jpg.asset.json";
+import newyear8 from "@/assets/newyear-08.jpg.asset.json";
+import newyear9 from "@/assets/newyear-09.jpg.asset.json";
+import newyear10 from "@/assets/newyear-10.jpg.asset.json";
 
 // TODO: replace with the academy's real profile links
 const socials = {
@@ -109,7 +119,13 @@ const congrats: { img: string; caption: string }[] = [
   { img: congrats23.url, caption: "Inuki Wijesekara – U13 Girls' Singles 2nd Runner-Up, 53rd AVI Junior National Championship Finals 2025" },
 ];
 
-const events = [
+const newyearPhotos = [
+  newyear1.url, newyear2.url, newyear3.url, newyear4.url, newyear5.url,
+  newyear6.url, newyear7.url, newyear8.url, newyear9.url, newyear10.url,
+];
+
+const events: { date: string; title: string; place: string; img: string; desc: string; photos?: string[] }[] = [
+  { date: "Apr 2026", title: "සිංහල අලුත් අවුරුදු උත්සවය 2026", place: "RKBA Family Day", img: newyear1.url, desc: "Traditional games, fun and celebration with our players, parents and coaches — a true Sri Lanka New Year festival.", photos: newyearPhotos },
   { date: "Jan 2026", title: "RKBA Inter-Academy Junior Open", place: "Colombo", img: court4, desc: "Our annual junior tournament across U11–U19 categories." },
   { date: "Mar 2026", title: "Holiday Intensive Camp", place: "RKBA Courts", img: court2, desc: "Five days of footwork, fitness and match-play drills." },
   { date: "Jun 2026", title: "Parents & Players Fun Day", place: "RKBA Courts", img: court1, desc: "Doubles mixers, coach challenges and awards for the season." },
@@ -245,6 +261,20 @@ function useScrollFx() {
 
 function Index() {
   const progress = useScrollFx();
+  const [gallery, setGallery] = useState<{ title: string; photos: string[] } | null>(null);
+  const [gi, setGi] = useState(0);
+
+  useEffect(() => {
+    if (!gallery) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setGallery(null);
+      if (e.key === "ArrowRight") setGi((i) => Math.min(i + 1, gallery.photos.length - 1));
+      if (e.key === "ArrowLeft") setGi((i) => Math.max(i - 1, 0));
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
+  }, [gallery]);
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="fixed left-0 top-0 z-[60] h-0.5 bg-primary" style={{ width: `${progress * 100}%` }} />
@@ -425,12 +455,30 @@ function Index() {
           <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">Events by <span className="text-primary">RKBA</span></h2>
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {events.map((e) => (
-              <article key={e.title} className="clip-cut group overflow-hidden border border-border bg-card transition-colors hover:border-primary">
-                <div className="overflow-hidden"><img src={e.img} alt={e.title} loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-110" /></div>
+              <article
+                key={e.title}
+                onClick={() => { if (!e.photos) return; setGallery({ title: e.title, photos: e.photos }); setGi(0); }}
+                className={`clip-cut group overflow-hidden border border-border bg-card transition-colors hover:border-primary${e.photos ? " cursor-pointer" : ""}`}
+              >
+                <div className="relative overflow-hidden">
+                  <img src={e.img} alt={e.title} loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  {e.photos && (
+                    <div className="absolute right-3 top-3 flex items-center gap-1.5 bg-background/80 px-3 py-1.5 font-tech text-xs font-semibold uppercase tracking-wider text-primary backdrop-blur-sm">
+                      <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor"><path d="M9 3l-1.5 2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.5L15 3H9zm3 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
+                      {e.photos.length} photos
+                    </div>
+                  )}
+                </div>
                 <div className="p-6">
                   <div className="font-tech text-xs uppercase tracking-widest text-primary">{e.date} · {e.place}</div>
                   <h3 className="mt-2 font-display text-2xl font-extrabold uppercase leading-tight">{e.title}</h3>
                   <p className="mt-3 text-sm text-muted-foreground">{e.desc}</p>
+                  {e.photos && (
+                    <span className="mt-4 inline-flex items-center gap-2 font-tech text-xs font-bold uppercase tracking-widest text-primary">
+                      View gallery
+                      <svg viewBox="0 0 24 24" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    </span>
+                  )}
                 </div>
               </article>
             ))}
@@ -597,6 +645,48 @@ function Index() {
         <span className="absolute inset-0 animate-ping rounded-full bg-primary opacity-30" />
         <PhoneIcon />
       </a>
+
+      {/* Fullscreen event gallery */}
+      {gallery && (
+        <div className="fixed inset-0 z-[70] flex flex-col bg-background/95 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label={`${gallery.title} gallery`}>
+          <div className="flex items-center justify-between px-6 py-4">
+            <div>
+              <div className="font-tech text-xs uppercase tracking-widest text-primary">Event gallery</div>
+              <div className="font-display text-xl font-extrabold uppercase">{gallery.title}</div>
+            </div>
+            <button onClick={() => setGallery(null)} aria-label="Close gallery" className="flex h-11 w-11 items-center justify-center border border-border bg-card transition-colors hover:border-primary hover:text-primary">
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
+            </button>
+          </div>
+          <div className="relative flex min-h-0 flex-1 items-center justify-center px-6 pb-6">
+            <button
+              onClick={() => setGi((i) => Math.max(i - 1, 0))}
+              disabled={gi === 0}
+              aria-label="Previous photo"
+              className="absolute left-4 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card/80 backdrop-blur transition-colors hover:border-primary hover:text-primary disabled:opacity-30 disabled:hover:border-border disabled:hover:text-inherit"
+            >
+              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
+            </button>
+            <img key={gallery.photos[gi]} src={gallery.photos[gi]} alt={`${gallery.title} — photo ${gi + 1}`} className="animate-rise max-h-full max-w-full object-contain" />
+            <button
+              onClick={() => setGi((i) => Math.min(i + 1, gallery.photos.length - 1))}
+              disabled={gi === gallery.photos.length - 1}
+              aria-label="Next photo"
+              className="absolute right-4 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card/80 backdrop-blur transition-colors hover:border-primary hover:text-primary disabled:opacity-30 disabled:hover:border-border disabled:hover:text-inherit"
+            >
+              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
+            </button>
+          </div>
+          <div className="flex items-center justify-center gap-2 overflow-x-auto px-6 py-4">
+            {gallery.photos.map((p, i) => (
+              <button key={p} onClick={() => setGi(i)} aria-label={`Photo ${i + 1}`} className={`h-14 w-20 shrink-0 overflow-hidden border transition-colors ${i === gi ? "border-primary" : "border-transparent opacity-50 hover:opacity-80"}`}>
+                <img src={p} alt="" className="h-full w-full object-cover" />
+              </button>
+            ))}
+            <span className="ml-4 shrink-0 font-tech text-xs tracking-widest text-muted-foreground">{gi + 1} / {gallery.photos.length}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
