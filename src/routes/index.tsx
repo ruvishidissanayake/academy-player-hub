@@ -56,6 +56,13 @@ import newyear7 from "@/assets/newyear-07.jpg.asset.json";
 import newyear8 from "@/assets/newyear-08.jpg.asset.json";
 import newyear9 from "@/assets/newyear-09.jpg.asset.json";
 import newyear10 from "@/assets/newyear-10.jpg.asset.json";
+import newyear11 from "@/assets/newyear-11.jpg.asset.json";
+import newyear12 from "@/assets/newyear-12.jpg.asset.json";
+import newyear13 from "@/assets/newyear-13.jpg.asset.json";
+import newyear14 from "@/assets/newyear-14.jpg.asset.json";
+import newyear15 from "@/assets/newyear-15.jpg.asset.json";
+import newyear16 from "@/assets/newyear-16.jpg.asset.json";
+import newyear17 from "@/assets/newyear-17.jpg.asset.json";
 
 // TODO: replace with the academy's real profile links
 const socials = {
@@ -122,6 +129,8 @@ const congrats: { img: string; caption: string }[] = [
 const newyearPhotos = [
   newyear1.url, newyear2.url, newyear3.url, newyear4.url, newyear5.url,
   newyear6.url, newyear7.url, newyear8.url, newyear9.url, newyear10.url,
+  newyear11.url, newyear12.url, newyear13.url, newyear14.url, newyear15.url,
+  newyear16.url, newyear17.url,
 ];
 
 const events: { date: string; title: string; place: string; img: string; desc: string; photos?: string[] }[] = [
@@ -461,7 +470,15 @@ function Index() {
                 className={`clip-cut group overflow-hidden border border-border bg-card transition-colors hover:border-primary${e.photos ? " cursor-pointer" : ""}`}
               >
                 <div className="relative overflow-hidden">
-                  <img src={e.img} alt={e.title} loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  {e.photos && e.photos.length >= 3 ? (
+                    <div className="grid aspect-[4/3] grid-cols-3">
+                      {e.photos.slice(0, 3).map((p, i) => (
+                        <img key={p} src={p} alt={`${e.title} — photo ${i + 1}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                      ))}
+                    </div>
+                  ) : (
+                    <img src={e.img} alt={e.title} loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  )}
                   {e.photos && (
                     <div className="absolute right-3 top-3 flex items-center gap-1.5 bg-background/80 px-3 py-1.5 font-tech text-xs font-semibold uppercase tracking-wider text-primary backdrop-blur-sm">
                       <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor"><path d="M9 3l-1.5 2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.5L15 3H9zm3 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
