@@ -64,6 +64,15 @@ import newyear14 from "@/assets/newyear-14.jpg.asset.json";
 import newyear15 from "@/assets/newyear-15.jpg.asset.json";
 import newyear16 from "@/assets/newyear-16.jpg.asset.json";
 import newyear17 from "@/assets/newyear-17.jpg.asset.json";
+import rdsCamp1 from "@/assets/rds-camp-01.jpg.asset.json";
+import rdsCamp2 from "@/assets/rds-camp-02.jpg.asset.json";
+import rdsCamp3 from "@/assets/rds-camp-03.jpg.asset.json";
+import rdsCamp4 from "@/assets/rds-camp-04.jpg.asset.json";
+import rdsCamp5 from "@/assets/rds-camp-05.jpg.asset.json";
+import rdsCamp6 from "@/assets/rds-camp-06.jpg.asset.json";
+import rdsCamp7 from "@/assets/rds-camp-07.jpg.asset.json";
+import rdsCamp8 from "@/assets/rds-camp-08.jpg.asset.json";
+import rdsCamp9 from "@/assets/rds-camp-09.jpg.asset.json";
 
 // TODO: replace with the academy's real profile links
 const socials = {
@@ -127,6 +136,7 @@ const congrats: { img: string; caption: string }[] = [
   { img: congrats23.url, caption: "Inuki Wijesekara – U13 Girls' Singles 2nd Runner-Up, 53rd AVI Junior National Championship Finals 2025" },
 ];
 
+const rdsCampPhotos = [rdsCamp1.url, rdsCamp2.url, rdsCamp3.url, rdsCamp4.url, rdsCamp5.url, rdsCamp6.url, rdsCamp7.url, rdsCamp8.url, rdsCamp9.url];
 const newyearPhotos = [
   newyear1.url, newyear2.url, newyear3.url, newyear4.url, newyear5.url,
   newyear6.url, newyear7.url, newyear8.url, newyear9.url, newyear10.url,
@@ -137,7 +147,7 @@ const newyearPhotos = [
 const events: { date: string; title: string; place: string; img: string; desc: string; photos?: string[]; video?: string }[] = [
   { date: "Apr 2026", title: "සිංහල අලුත් අවුරුදු උත්සවය 2026", place: "RKBA Family Day", img: newyear1.url, desc: "Traditional games, fun and celebration with our players, parents and coaches — a true Sri Lanka New Year festival.", photos: newyearPhotos },
   { date: "Apr 2026", title: "Awurudu 2026 on TikTok", place: "RKBA Family Day", img: "", desc: "Relive the fun of our Sinhala New Year celebration.", video: awuruduTiktok.url },
-  { date: "Jan 2026", title: "RKBA Inter-Academy Junior Open", place: "Colombo", img: court4, desc: "Our annual junior tournament across U11–U19 categories." },
+  { date: "2026", title: "RDS & RKBA Collaboration Coaching Camp", place: "RDS × RKBA", img: rdsCamp1.url, desc: "A joint coaching camp with RDS — shared court sessions, coach-led drills and time together for players from both academies.", photos: rdsCampPhotos },
 ];
 
 const tiktoks = [
