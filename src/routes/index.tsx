@@ -64,6 +64,7 @@ import newyear14 from "@/assets/newyear-14.jpg.asset.json";
 import newyear15 from "@/assets/newyear-15.jpg.asset.json";
 import newyear16 from "@/assets/newyear-16.jpg.asset.json";
 import newyear17 from "@/assets/newyear-17.jpg.asset.json";
+import rdsCampCover from "@/assets/rds-camp-cover.jpg.asset.json";
 import rdsCamp1 from "@/assets/rds-camp-01.jpg.asset.json";
 import rdsCamp2 from "@/assets/rds-camp-02.jpg.asset.json";
 import rdsCamp3 from "@/assets/rds-camp-03.jpg.asset.json";
@@ -144,10 +145,10 @@ const newyearPhotos = [
   newyear16.url, newyear17.url,
 ];
 
-const events: { date: string; title: string; place: string; img: string; desc: string; photos?: string[]; video?: string }[] = [
+const events: { date: string; title: string; place: string; img: string; desc: string; photos?: string[]; video?: string; cover?: string }[] = [
   { date: "Apr 2026", title: "සිංහල අලුත් අවුරුදු උත්සවය 2026", place: "RKBA Family Day", img: newyear1.url, desc: "Traditional games, fun and celebration with our players, parents and coaches — a true Sri Lanka New Year festival.", photos: newyearPhotos },
   { date: "Apr 2026", title: "Awurudu 2026 on TikTok", place: "RKBA Family Day", img: "", desc: "Relive the fun of our Sinhala New Year celebration.", video: awuruduTiktok.url },
-  { date: "2026", title: "RDS & RKBA Collaboration Coaching Camp", place: "RDS × RKBA", img: rdsCamp1.url, desc: "A joint coaching camp with RDS — shared court sessions, coach-led drills and time together for players from both academies.", photos: rdsCampPhotos },
+  { date: "15 Jan 2026", title: "RDS & RKBA Badminton Collaboration Coaching Camp", place: "SRS Sport Complex, Galle", img: rdsCampCover.url, cover: rdsCampCover.url, desc: "A joint coaching camp by RDS Shuttle Sprint Badminton Academy and RKBA, headed by Olympian Niluka Karunaratne with the OLY Niluka Karunaratne Foundation.", photos: [rdsCampCover.url, ...rdsCampPhotos] },
 ];
 
 const tiktoks = [
@@ -480,7 +481,9 @@ function Index() {
                 className={`clip-cut group overflow-hidden border border-border bg-card transition-colors hover:border-primary${e.photos ? " cursor-pointer" : ""}`}
               >
                 <div className="relative overflow-hidden">
-                  {e.photos && e.photos.length >= 3 ? (
+                  {e.cover ? (
+                    <img src={e.cover} alt={e.title} loading="lazy" className="aspect-[4/3] w-full bg-background object-contain" />
+                  ) : e.photos && e.photos.length >= 3 ? (
                     <div className="grid aspect-[4/3] grid-cols-3 gap-1 bg-background">
                       {e.photos.slice(0, 3).map((p, i) => (
                         <img key={p} src={p} alt={`${e.title} — photo ${i + 1}`} loading="lazy" className="h-full w-full object-contain" />
