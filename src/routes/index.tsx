@@ -11,6 +11,7 @@ import collab2 from "@/assets/collab2.jpg";
 import collabVideo from "@/assets/collab-partnership.mp4.asset.json";
 import collabVideoPoster from "@/assets/collab-partnership-poster.jpg.asset.json";
 import podcast from "@/assets/podcast-episode-1.jpg.asset.json";
+import awuruduTiktok from "@/assets/awurudu-tiktok.mp4.asset.json";
 import tiktok1 from "@/assets/tiktok-1.mp4.asset.json";
 import tiktok2 from "@/assets/tiktok-2.mp4.asset.json";
 import tiktok3 from "@/assets/tiktok-3.mp4.asset.json";
@@ -133,11 +134,10 @@ const newyearPhotos = [
   newyear16.url, newyear17.url,
 ];
 
-const events: { date: string; title: string; place: string; img: string; desc: string; photos?: string[] }[] = [
+const events: { date: string; title: string; place: string; img: string; desc: string; photos?: string[]; video?: string }[] = [
   { date: "Apr 2026", title: "සිංහල අලුත් අවුරුදු උත්සවය 2026", place: "RKBA Family Day", img: newyear1.url, desc: "Traditional games, fun and celebration with our players, parents and coaches — a true Sri Lanka New Year festival.", photos: newyearPhotos },
+  { date: "Apr 2026", title: "Awurudu 2026 on TikTok", place: "RKBA Family Day", img: "", desc: "Relive the fun of our Sinhala New Year celebration.", video: awuruduTiktok.url },
   { date: "Jan 2026", title: "RKBA Inter-Academy Junior Open", place: "Colombo", img: court4, desc: "Our annual junior tournament across U11–U19 categories." },
-  { date: "Mar 2026", title: "Holiday Intensive Camp", place: "RKBA Courts", img: court2, desc: "Five days of footwork, fitness and match-play drills." },
-  { date: "Jun 2026", title: "Parents & Players Fun Day", place: "RKBA Courts", img: court1, desc: "Doubles mixers, coach challenges and awards for the season." },
 ];
 
 const tiktoks = [
@@ -471,11 +471,13 @@ function Index() {
               >
                 <div className="relative overflow-hidden">
                   {e.photos && e.photos.length >= 3 ? (
-                    <div className="grid aspect-[4/3] grid-cols-3">
+                    <div className="grid aspect-[4/3] grid-cols-3 gap-1 bg-background">
                       {e.photos.slice(0, 3).map((p, i) => (
-                        <img key={p} src={p} alt={`${e.title} — photo ${i + 1}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <img key={p} src={p} alt={`${e.title} — photo ${i + 1}`} loading="lazy" className="h-full w-full object-contain" />
                       ))}
                     </div>
+                  ) : e.video ? (
+                    <video src={e.video} autoPlay muted loop playsInline preload="metadata" className="aspect-[4/3] w-full bg-background object-contain" />
                   ) : (
                     <img src={e.img} alt={e.title} loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   )}
