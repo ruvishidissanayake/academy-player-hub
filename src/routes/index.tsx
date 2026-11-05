@@ -172,7 +172,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const nav = [["About", "#about"], ["Training", "#training"], ["Coaches", "#coaches"], ["Champions", "#achievements"], ["Events", "#events"], ["Partners", "#collab"], ["Gallery", "#gallery"]];
+const nav = [["About", "#about"], ["Training", "#training"], ["Coaches", "#coaches"], ["Champions", "#achievements"], ["Events", "#events"], ["Partners", "#collab"]];
 
 const mission = [
   "Professional training under qualified, experienced coaches",
@@ -316,7 +316,7 @@ function Index() {
 
       {/* Hero */}
       <section id="top" className="relative flex min-h-screen items-end overflow-hidden">
-        <img src={hero.url} alt="RKBA player lunging for a shuttle" className="animate-kenburns absolute inset-0 h-full w-full object-cover object-[70%_center]" />
+        <img src={hero.url} alt="RKBA player lunging for a shuttle" className="animate-kenburns absolute inset-0 h-full w-full object-cover object-[42%_center] md:object-[70%_center]" />
         <div className="hero-overlay absolute inset-0" />
         <div className="fade-bottom absolute inset-0" />
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -609,26 +609,6 @@ function Index() {
         </div>
       </section>
 
-      {/* Gallery */}
-      <section id="gallery" className="topo border-t border-border py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <Label n="08">Gallery</Label>
-          <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">On the <span className="text-primary">courts</span></h2>
-          <div className="mt-14 grid auto-rows-[220px] grid-cols-2 gap-4 md:grid-cols-4">
-            {[
-              { src: court1, c: "col-span-2 row-span-2" },
-              { src: court2, c: "row-span-2" },
-              { src: court3, c: "" },
-              { src: hero.url, c: "" },
-              { src: court4, c: "col-span-2 md:col-span-4" },
-            ].map((g, i) => (
-              <div key={i} className={`group overflow-hidden border border-border ${g.c}`}>
-                <img src={g.src} alt="RKBA courts" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA */}
       <section id="join" className="topo relative overflow-hidden border-t border-border bg-card py-28 text-center">
