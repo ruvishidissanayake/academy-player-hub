@@ -11,3 +11,6 @@
 
 ## Media
 - Store uploaded academy media as Lovable Assets pointers and import their URLs; this preserves original media without adding binaries to the repository.
+
+## Motion
+- Keep shared hover effects in global CSS with fine-pointer guards and reduced-motion overrides so cards and links animate consistently without disturbing touch layouts.

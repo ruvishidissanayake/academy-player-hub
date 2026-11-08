@@ -96,7 +96,7 @@ function Socials({ size = "h-10 w-10" }: { size?: string }) {
   return (
     <div className="flex gap-3">
       {items.map(([l, h, icon]) => (
-        <a key={l} href={h} target="_blank" rel="noreferrer" aria-label={l} className={`${size} flex items-center justify-center border border-border text-foreground transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground`}>{icon}</a>
+        <a key={l} href={h} target="_blank" rel="noreferrer" aria-label={l} className={`${size} hover-action flex items-center justify-center border border-border text-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground`}>{icon}</a>
       ))}
     </div>
   );
@@ -302,7 +302,7 @@ function Index() {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-3">
           <a href="#top" className="shrink-0"><img src={logo.url} alt="RKBA logo" className="h-12 w-12 rounded-full object-cover" /></a>
           <nav className="hidden gap-6 font-tech text-xs uppercase tracking-widest xl:flex">
-            {nav.map(([l, h]) => <a key={h} href={h} className="text-muted-foreground transition-colors hover:text-primary">{l}</a>)}
+            {nav.map(([l, h]) => <a key={h} href={h} className="hover-nav text-muted-foreground hover:text-primary">{l}</a>)}
           </nav>
           <a href="#top" className="text-right font-display font-extrabold uppercase leading-none tracking-wide text-primary">
             <span className="block text-base sm:text-xl">Ranthushka Karunathilaka</span>
@@ -310,7 +310,7 @@ function Index() {
           </a>
         </div>
         <nav className="flex gap-5 overflow-x-auto border-t border-border/50 px-6 py-2 font-tech text-xs uppercase tracking-widest xl:hidden">
-          {nav.map(([l, h]) => <a key={h} href={h} className="shrink-0 text-muted-foreground hover:text-primary">{l}</a>)}
+          {nav.map(([l, h]) => <a key={h} href={h} className="hover-nav shrink-0 text-muted-foreground hover:text-primary">{l}</a>)}
         </nav>
       </header>
 
@@ -335,8 +335,8 @@ function Index() {
             Ranthushka Karunathilaka Badminton Academy — building champions for district, national and international courts.
           </p>
           <div className="animate-rise mt-10 flex flex-wrap gap-4" style={{ animationDelay: "0.3s" }}>
-            <a href="#training" className="clip-cut glow bg-primary px-8 py-4 font-tech font-bold uppercase tracking-wider text-primary-foreground">Start Training</a>
-            <a href="#achievements" className="border border-foreground/30 px-8 py-4 font-tech font-bold uppercase tracking-wider transition-colors hover:border-primary hover:text-primary">Our Champions</a>
+            <a href="#training" className="hover-action clip-cut glow bg-primary px-8 py-4 font-tech font-bold uppercase tracking-wider text-primary-foreground">Start Training</a>
+            <a href="#achievements" className="hover-action border border-foreground/30 px-8 py-4 font-tech font-bold uppercase tracking-wider hover:border-primary hover:text-primary">Our Champions</a>
           </div>
           <div className="mt-16 grid max-w-2xl grid-cols-3 gap-6 border-t border-border pt-6">
             {[["2022", "Founded"], ["4", "Expert coaches"], ["20+", "Titles & podiums"]].map(([v, l]) => (
@@ -389,7 +389,7 @@ function Index() {
               { t: "Group Training", d: "Practice in a competitive, supportive environment — build teamwork, match experience and consistency.", pts: ["Footwork & technique", "Match strategy", "Fitness conditioning"] },
               { t: "Individual Coaching", d: "One-on-one sessions for advanced technique, tactical improvement and preparation for major tournaments.", pts: ["Personal skill plans", "Tactical analysis", "Tournament preparation"] },
             ].map((p, i) => (
-              <div key={p.t} className="clip-cut group relative overflow-hidden bg-card p-10 transition-all hover:-translate-y-1 hover:glow">
+              <div key={p.t} className="hover-card clip-cut group relative overflow-hidden bg-card p-10">
                 <div className="absolute -right-4 -top-6 font-display text-[9rem] font-extrabold leading-none text-muted transition-colors group-hover:text-primary/15">0{i + 1}</div>
                 <h3 className="relative font-display text-4xl font-extrabold uppercase">{p.t}</h3>
                 <p className="relative mt-4 text-muted-foreground">{p.d}</p>
@@ -409,7 +409,7 @@ function Index() {
           <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">The team behind the wins</h2>
           <div className="mt-14 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
             {coaches.map((c) => (
-              <div key={c.name} className="group bg-background p-6 transition-colors hover:bg-card">
+              <div key={c.name} className="hover-card group bg-background p-6 hover:bg-card">
                 <div className="relative aspect-[4/5] overflow-hidden bg-card">
                   {c.img ? (
                     <img src={c.img} alt={c.name} loading="lazy" className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
@@ -438,7 +438,7 @@ function Index() {
           <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">Our <span className="text-primary">champions</span></h2>
           <div className="mt-14 grid gap-6 md:grid-cols-2">
             {players.map((p) => (
-              <div key={p.name} className="clip-cut border border-border bg-card p-8 transition-colors hover:border-primary">
+              <div key={p.name} className="hover-card clip-cut border border-border bg-card p-8">
                 <div className="flex items-start justify-between gap-4">
                   <h3 className="min-w-0 break-words font-display text-3xl font-extrabold uppercase">{p.name}</h3>
                   <span className="shrink-0 bg-primary px-3 py-1 font-tech text-xs font-bold text-primary-foreground">{p.tag}</span>
@@ -458,7 +458,7 @@ function Index() {
             <div className="congrats-strip mt-8 overflow-hidden border-y border-border py-4 [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]">
               <div className="animate-congrats flex w-max gap-4 pr-4 hover:[animation-play-state:paused]">
                 {[...congrats, ...congrats].map((c, i) => (
-                  <figure key={`${c.img}-${i}`} className="group shrink-0 overflow-hidden border border-border bg-card">
+                  <figure key={`${c.img}-${i}`} className="hover-card group shrink-0 overflow-hidden border border-border bg-card">
                     <img src={c.img} alt={c.caption} loading="lazy" className="h-72 w-auto object-cover transition-transform duration-700 group-hover:scale-105 md:h-80" />
                   </figure>
                 ))}
@@ -478,7 +478,7 @@ function Index() {
               <article
                 key={e.title}
                 onClick={() => { if (!e.photos) return; setGallery({ title: e.title, photos: e.photos }); setGi(0); }}
-                className={`clip-cut group overflow-hidden border border-border bg-card transition-colors hover:border-primary${e.photos ? " cursor-pointer" : ""}`}
+                className={`hover-card clip-cut group overflow-hidden border border-border bg-card${e.photos ? " cursor-pointer" : ""}`}
               >
                 <div className="relative overflow-hidden">
                   {e.cover ? (
@@ -526,7 +526,7 @@ function Index() {
           <p className="mt-6 max-w-2xl text-muted-foreground">A special collaboration between RKBA and Elite Shuttle — joint training sessions, friendly matches, media days and a podcast episode celebrating both academies.</p>
 
           {/* Podcast feature */}
-          <div className="clip-cut mt-14 grid overflow-hidden border border-border bg-card md:grid-cols-2">
+          <div className="hover-card clip-cut mt-14 grid overflow-hidden border border-border bg-card md:grid-cols-2">
             <div className="group overflow-hidden">
               <img src={podcast.url} alt="The Badminton Podcast — Episode 01, RKBA x EliteShuttler thumbnail" loading="lazy" width={1280} height={960} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
@@ -536,7 +536,7 @@ function Index() {
               <p className="mt-4 font-tech text-xs text-primary">12 October 2026</p>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Brian Gomez, co-founder of Eliteshuttler, sits down with Ranthushka Karunathilaka — a former Sri Lankan national champion and ranked international badminton player, now coaching the next generation.</p>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">From challenges on court to lessons beyond it, Ranthushka shares his journey, his perspective on the game, and why everyone should give badminton a try — and how it can change our lives.</p>
-              <a href="https://youtu.be/9mA8gtlc2wo?si=otW1WHZ-sCDxgSdV" target="_blank" rel="noreferrer" className="clip-cut glow mt-8 inline-flex w-fit items-center gap-2 bg-primary px-6 py-3 font-tech text-sm font-bold uppercase tracking-wider text-primary-foreground">
+              <a href="https://youtu.be/9mA8gtlc2wo?si=otW1WHZ-sCDxgSdV" target="_blank" rel="noreferrer" className="hover-action clip-cut glow mt-8 inline-flex w-fit items-center gap-2 bg-primary px-6 py-3 font-tech text-sm font-bold uppercase tracking-wider text-primary-foreground">
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M8 5v14l11-7z" /></svg> Watch the episode
               </a>
             </div>
@@ -544,7 +544,7 @@ function Index() {
 
           {/* Videos + photos */}
           <div className="mt-6 grid gap-6 md:grid-cols-3">
-            <article className="clip-cut group relative overflow-hidden border border-border bg-card transition-colors hover:border-primary">
+            <article className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
               <video src={collabVideo.url} poster={collabVideoPoster.url} autoPlay muted loop playsInline preload="auto" className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="fade-bottom pointer-events-none absolute inset-0" />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5">
@@ -557,7 +557,7 @@ function Index() {
               { img: collab1, title: "Joint training session", video: true },
               { img: collab1, title: "Media day & team photos", video: false },
             ].map((c) => (
-              <article key={c.title} className="clip-cut group relative overflow-hidden border border-border bg-card transition-colors hover:border-primary">
+              <article key={c.title} className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
                 <img src={c.img} alt={c.title} loading="lazy" className={`w-full object-cover transition-transform duration-700 group-hover:scale-110 ${c.video ? "aspect-[3/4]" : "aspect-[3/4]"}`} />
                 <div className="fade-bottom absolute inset-0" />
                 {c.video && (
@@ -582,13 +582,13 @@ function Index() {
               <Label n="07">On TikTok</Label>
               <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">Watch us <span className="text-primary">train</span></h2>
             </div>
-            <a href={socials.tiktok} target="_blank" rel="noreferrer" className="clip-cut flex items-center gap-2 bg-primary px-6 py-3 font-tech text-sm font-bold uppercase tracking-wider text-primary-foreground"><TikTokIcon /> Follow on TikTok</a>
+            <a href={socials.tiktok} target="_blank" rel="noreferrer" className="hover-action clip-cut flex items-center gap-2 bg-primary px-6 py-3 font-tech text-sm font-bold uppercase tracking-wider text-primary-foreground"><TikTokIcon /> Follow on TikTok</a>
           </div>
           <div className="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4">
             {tiktoks.map((v) => (
               <div
                 key={v.title}
-                className="group relative block aspect-[9/16] overflow-hidden border border-border transition-colors hover:border-primary"
+                className="hover-card group relative block aspect-[9/16] overflow-hidden border border-border"
               >
                 <video
                   src={v.src}
@@ -616,7 +616,7 @@ function Index() {
         <h2 className="mx-auto mt-8 max-w-3xl px-6 font-display text-5xl font-extrabold uppercase leading-none md:text-7xl">Ready to step on <span className="text-primary">court?</span></h2>
         <p className="mx-auto mt-6 max-w-md px-6 text-muted-foreground">Join group sessions or book individual coaching with RKBA today.</p>
         <div className="mt-10 flex justify-center"><Socials size="h-12 w-12" /></div>
-        <a href="#top" className="clip-cut glow mt-8 inline-block bg-primary px-10 py-4 font-tech font-bold uppercase tracking-wider text-primary-foreground">Get in touch</a>
+        <a href="#top" className="hover-action clip-cut glow mt-8 inline-block bg-primary px-10 py-4 font-tech font-bold uppercase tracking-wider text-primary-foreground">Get in touch</a>
       </section>
 
       <footer className="topo relative border-t border-border bg-card">
@@ -634,12 +634,12 @@ function Index() {
           <div>
             <div className="font-tech text-xs uppercase tracking-widest text-primary">Explore</div>
             <ul className="mt-4 space-y-2 text-sm">
-              {nav.map(([l, h]) => <li key={h}><a href={h} className="text-muted-foreground transition-colors hover:text-primary">{l}</a></li>)}
+              {nav.map(([l, h]) => <li key={h}><a href={h} className="hover-nav text-muted-foreground hover:text-primary">{l}</a></li>)}
             </ul>
           </div>
           <div>
             <div className="font-tech text-xs uppercase tracking-widest text-primary">Call the academy</div>
-            <a href={`tel:${PHONE}`} className="clip-cut glow mt-4 flex items-center gap-3 bg-primary px-5 py-4 font-tech font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:-translate-y-0.5">
+            <a href={`tel:${PHONE}`} className="hover-action clip-cut glow mt-4 flex items-center gap-3 bg-primary px-5 py-4 font-tech font-bold uppercase tracking-wider text-primary-foreground">
               <PhoneIcon /> {PHONE_LABEL}
             </a>
             <p className="mt-3 text-xs text-muted-foreground">Tap to call for training & enrolment.</p>
