@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { PHONE, PHONE_LABEL } from "@/lib/academy-contact";
 import hero from "@/assets/hero.png.asset.json";
 import logo from "@/assets/logo.png.asset.json";
 import court1 from "@/assets/court1.jpg";
@@ -101,10 +102,6 @@ function Socials({ size = "h-10 w-10" }: { size?: string }) {
     </div>
   );
 }
-
-// TODO: replace with the academy's real phone number
-const PHONE = "+94770000000";
-const PHONE_LABEL = "+94 77 000 0000";
 
 // Congratulations posts (add new images here as they're shared on social media)
 const congrats: { img: string; caption: string }[] = [
@@ -474,26 +471,26 @@ function Index() {
         <div className="mx-auto max-w-7xl px-6">
           <Label n="05">Events</Label>
           <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">Events by <span className="text-primary">RKBA</span></h2>
-          <div className="mt-14 grid items-start gap-6 md:grid-cols-[1fr_1.25fr_1fr]">
+          <div className="mt-14 grid items-stretch gap-6 md:grid-cols-3">
             {events.map((e) => (
               <article
                 key={e.title}
                 onClick={() => { if (!e.photos) return; setGallery({ title: e.title, photos: e.photos }); setGi(0); }}
-                className={`hover-card clip-cut group overflow-hidden border border-border bg-card${e.photos ? " cursor-pointer" : ""}`}
+                className={`hover-card clip-cut group flex min-w-0 flex-col overflow-hidden border border-border bg-card${e.photos ? " cursor-pointer" : ""}`}
               >
-                <div className="relative overflow-hidden">
+                <div className="relative aspect-[9/16] shrink-0 overflow-hidden bg-background">
                   {e.cover ? (
-                    <img src={e.cover} alt={e.title} loading="lazy" className="aspect-[4/3] w-full bg-background object-contain" />
+                    <img src={e.cover} alt={e.title} loading="lazy" className="h-full w-full object-contain" />
                   ) : e.photos && e.photos.length >= 3 ? (
-                    <div className="grid aspect-[4/3] grid-cols-3 gap-1 bg-background">
+                    <div className="grid h-full grid-rows-3 gap-1">
                       {e.photos.slice(0, 3).map((p, i) => (
-                        <img key={p} src={p} alt={`${e.title} — photo ${i + 1}`} loading="lazy" className="h-full w-full object-contain" />
+                        <img key={p} src={p} alt={`${e.title} — photo ${i + 1}`} loading="lazy" className="h-full min-h-0 w-full object-contain" />
                       ))}
                     </div>
                   ) : e.video ? (
-                    <video src={e.video} aria-label={e.title} autoPlay muted loop playsInline controls preload="metadata" className="aspect-[9/16] w-full bg-background object-contain" />
+                    <video src={e.video} aria-label={e.title} autoPlay muted loop playsInline controls preload="metadata" className="h-full w-full object-contain" />
                   ) : (
-                    <img src={e.img} alt={e.title} loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <img src={e.img} alt={e.title} loading="lazy" className="h-full w-full object-contain" />
                   )}
                   {e.photos && (
                     <div className="absolute right-3 top-3 flex items-center gap-1.5 bg-background/80 px-3 py-1.5 font-tech text-xs font-semibold uppercase tracking-wider text-primary backdrop-blur-sm">
@@ -502,7 +499,7 @@ function Index() {
                     </div>
                   )}
                 </div>
-                <div className="p-6">
+                <div className="min-h-64 flex-1 p-6">
                   <div className="font-tech text-xs uppercase tracking-widest text-primary">{e.date} · {e.place}</div>
                   <h3 className="mt-2 font-display text-2xl font-extrabold uppercase leading-tight">{e.title}</h3>
                   <p className="mt-3 text-sm text-muted-foreground">{e.desc}</p>
