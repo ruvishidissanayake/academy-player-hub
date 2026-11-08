@@ -14,3 +14,4 @@
 
 ## Motion
 - Keep shared hover effects in global CSS with fine-pointer guards and reduced-motion overrides so cards and links animate consistently without disturbing touch layouts.
+- Observe individual cards and headings for scroll reveals rather than tall grid wrappers; compose reveal and hover transitions in shared CSS so neither overrides the other.

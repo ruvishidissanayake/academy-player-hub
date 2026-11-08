@@ -261,11 +261,12 @@ function PhoneIcon() {
 function useScrollFx() {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>("section:not(#top) > div > *");
+    // Observe individual cards, not tall grids that can enter long before a card is visible.
+    const els = document.querySelectorAll<HTMLElement>("section:not(#top) .hover-card, section:not(#top) h2, section:not(#top) > div > p, #about > div > div");
     els.forEach((el) => el.classList.add("reveal"));
     const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("reveal-in"); io.unobserve(e.target); } }),
-      { threshold: 0.12 },
+      (entries) => entries.forEach((e) => { e.target.classList.toggle("reveal-in", e.isIntersecting); }),
+      { threshold: 0, rootMargin: "0px 0px -40px 0px" },
     );
     els.forEach((el) => io.observe(el));
     const onScroll = () => {
@@ -274,7 +275,7 @@ function useScrollFx() {
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => { io.disconnect(); window.removeEventListener("scroll", onScroll); };
+    return () => { io.disconnect(); els.forEach((el) => el.classList.remove("reveal", "reveal-in")); window.removeEventListener("scroll", onScroll); };
   }, []);
   return progress;
 }
@@ -473,7 +474,7 @@ function Index() {
         <div className="mx-auto max-w-7xl px-6">
           <Label n="05">Events</Label>
           <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">Events by <span className="text-primary">RKBA</span></h2>
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
+          <div className="mt-14 grid items-start gap-6 md:grid-cols-[1fr_1.25fr_1fr]">
             {events.map((e) => (
               <article
                 key={e.title}
@@ -490,7 +491,7 @@ function Index() {
                       ))}
                     </div>
                   ) : e.video ? (
-                    <video src={e.video} autoPlay muted loop playsInline preload="metadata" className="aspect-[4/3] w-full bg-background object-contain" />
+                    <video src={e.video} aria-label={e.title} autoPlay muted loop playsInline controls preload="metadata" className="aspect-[9/16] w-full bg-background object-contain" />
                   ) : (
                     <img src={e.img} alt={e.title} loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   )}
