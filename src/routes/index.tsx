@@ -246,7 +246,7 @@ const players = [
 function Label({ n, children }: { n: string; children: string }) {
   return (
     <div className="mb-6 flex items-center gap-3 font-tech text-xs uppercase tracking-[0.3em] text-primary">
-      <span>{n}</span><span className="h-px w-12 bg-primary" /><span>{children}</span>
+      <span>{n}</span><span className="section-label-line h-px w-12 bg-primary transition-all duration-300" /><span>{children}</span>
     </div>
   );
 }
@@ -266,13 +266,36 @@ function useScrollFx() {
       { threshold: 0, rootMargin: "0px 0px -40px 0px" },
     );
     els.forEach((el) => io.observe(el));
+
+    // Lazy-load videos: only play when visible in viewport
+    const videoObserver = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        const video = e.target as HTMLVideoElement;
+        if (e.isIntersecting) {
+          if (video.src !== video.dataset.src && video.dataset.src) {
+            video.src = video.dataset.src;
+          }
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      }),
+      { threshold: 0.1 },
+    );
+    document.querySelectorAll<HTMLVideoElement>("video[data-lazy]").forEach((v) => videoObserver.observe(v));
+
     const onScroll = () => {
       const h = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(h > 0 ? window.scrollY / h : 0);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => { io.disconnect(); els.forEach((el) => el.classList.remove("reveal", "reveal-in")); window.removeEventListener("scroll", onScroll); };
+    return () => {
+      io.disconnect();
+      videoObserver.disconnect();
+      els.forEach((el) => el.classList.remove("reveal", "reveal-in"));
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
   return progress;
 }
@@ -297,18 +320,39 @@ function Index() {
     <div className="min-h-screen bg-background text-foreground">
       <div className="fixed left-0 top-0 z-[60] h-0.5 bg-primary" style={{ width: `${progress * 100}%` }} />
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/50 bg-background/75 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-3">
-          <a href="#top" className="shrink-0"><img src={logo.url} alt="RKBA logo" className="h-12 w-12 rounded-full object-cover" /></a>
-          <nav className="hidden gap-6 font-tech text-xs uppercase tracking-widest xl:flex">
-            {nav.map(([l, h]) => <a key={h} href={h} className="hover-nav text-muted-foreground hover:text-primary">{l}</a>)}
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 py-2.5 sm:py-3">
+          {/* Left: Logo */}
+          <div className="flex flex-1 items-center justify-start">
+            <a href="#top" className="shrink-0 flex items-center gap-3">
+              <img src={logo.url} alt="RKBA logo" className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover" />
+            </a>
+          </div>
+
+          {/* Center: Desktop Navigation Bar */}
+          <nav className="hidden xl:flex items-center justify-center gap-7 font-tech text-xs uppercase tracking-widest">
+            {nav.map(([l, h]) => (
+              <a key={h} href={h} className="hover-nav text-muted-foreground hover:text-primary transition-colors py-1">
+                {l}
+              </a>
+            ))}
           </nav>
-          <a href="#top" className="text-right font-display font-extrabold uppercase leading-none tracking-wide text-primary">
-            <span className="block text-base sm:text-xl">Ranthushka Karunathilaka</span>
-            <span className="block font-tech text-[10px] font-semibold tracking-[0.3em] text-foreground sm:text-xs">Badminton Academy</span>
-          </a>
+
+          {/* Right: Academy Brand Title */}
+          <div className="flex flex-1 items-center justify-end">
+            <a href="#top" className="text-right font-display font-extrabold uppercase leading-none tracking-wide text-primary">
+              <span className="block text-sm sm:text-lg xl:text-xl">Ranthushka Karunathilaka</span>
+              <span className="block font-tech text-[9px] sm:text-[10px] font-semibold tracking-[0.2em] sm:tracking-[0.3em] text-foreground">Badminton Academy</span>
+            </a>
+          </div>
         </div>
-        <nav className="flex gap-5 overflow-x-auto border-t border-border/50 px-6 py-2 font-tech text-xs uppercase tracking-widest xl:hidden">
-          {nav.map(([l, h]) => <a key={h} href={h} className="hover-nav shrink-0 text-muted-foreground hover:text-primary">{l}</a>)}
+
+        {/* Mobile Navigation: Centered on phones and small tablets */}
+        <nav className="flex items-center justify-center gap-3.5 sm:gap-6 overflow-x-auto border-t border-border/50 px-4 py-2 font-tech text-[11px] sm:text-xs uppercase tracking-widest xl:hidden scrollbar-none">
+          {nav.map(([l, h]) => (
+            <a key={h} href={h} className="hover-nav shrink-0 text-muted-foreground hover:text-primary py-0.5">
+              {l}
+            </a>
+          ))}
         </nav>
       </header>
 
@@ -320,25 +364,25 @@ function Index() {
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           {[15, 35, 60, 80].map((l, i) => <span key={l} className="animate-float absolute bottom-0 h-1 w-1 rounded-full bg-primary" style={{ left: `${l}%`, animationDelay: `${i * 1.7}s` }} />)}
         </div>
-        <div className="absolute right-6 top-1/2 z-10 hidden -translate-y-1/2 flex-col items-center gap-4 md:flex">
+        <div className="absolute right-4 sm:right-6 top-1/2 z-10 hidden -translate-y-1/2 flex-col items-center gap-4 md:flex">
           <span className="font-tech text-[10px] uppercase tracking-[0.3em] text-muted-foreground [writing-mode:vertical-rl]">Follow us</span>
           <div className="[&>div]:flex-col"><Socials /></div>
         </div>
-        <div className="relative mx-auto w-full max-w-7xl px-6 pb-24 pt-40">
-          <p className="animate-rise font-tech text-sm uppercase tracking-[0.4em] text-primary">Est. 2022 · Sri Lanka</p>
-          <h1 className="animate-rise mt-4 max-w-3xl font-display text-6xl font-extrabold uppercase leading-[0.9] md:text-8xl lg:text-9xl" style={{ animationDelay: "0.1s" }}>
+        <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 pb-16 pt-32 sm:pb-24 sm:pt-40">
+          <p className="animate-rise font-tech text-xs sm:text-sm uppercase tracking-[0.3em] sm:tracking-[0.4em] text-primary">Est. 2022 · Sri Lanka</p>
+          <h1 className="animate-rise mt-3 sm:mt-4 max-w-3xl font-display text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-extrabold uppercase leading-[0.92] sm:leading-[0.9]" style={{ animationDelay: "0.1s" }}>
             Train hard.<br /><span className="text-primary">Play fearless.</span>
           </h1>
-          <p className="animate-rise mt-6 max-w-lg text-lg text-muted-foreground" style={{ animationDelay: "0.2s" }}>
+          <p className="animate-rise mt-4 sm:mt-6 max-w-lg text-base sm:text-lg text-muted-foreground" style={{ animationDelay: "0.2s" }}>
             Ranthushka Karunathilaka Badminton Academy — building champions for district, national and international courts.
           </p>
-          <div className="animate-rise mt-10 flex flex-wrap gap-4" style={{ animationDelay: "0.3s" }}>
-            <a href="#training" className="hover-action clip-cut glow bg-primary px-8 py-4 font-tech font-bold uppercase tracking-wider text-primary-foreground">Start Training</a>
-            <a href="#achievements" className="hover-action border border-foreground/30 px-8 py-4 font-tech font-bold uppercase tracking-wider hover:border-primary hover:text-primary">Our Champions</a>
+          <div className="animate-rise mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4" style={{ animationDelay: "0.3s" }}>
+            <a href="#training" className="hover-action clip-cut glow bg-primary px-6 sm:px-8 py-3.5 sm:py-4 text-center font-tech font-bold uppercase tracking-wider text-primary-foreground">Start Training</a>
+            <a href="#achievements" className="hover-action border border-foreground/30 px-6 sm:px-8 py-3.5 sm:py-4 text-center font-tech font-bold uppercase tracking-wider hover:border-primary hover:text-primary">Our Champions</a>
           </div>
-          <div className="mt-16 grid max-w-2xl grid-cols-3 gap-6 border-t border-border pt-6">
+          <div className="mt-12 sm:mt-16 grid max-w-2xl grid-cols-3 gap-3 sm:gap-6 border-t border-border pt-5 sm:pt-6">
             {[["2022", "Founded"], ["4", "Expert coaches"], ["20+", "Titles & podiums"]].map(([v, l]) => (
-              <div key={l}><div className="font-display text-4xl font-extrabold text-primary">{v}</div><div className="font-tech text-xs uppercase tracking-widest text-muted-foreground">{l}</div></div>
+              <div key={l}><div className="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary">{v}</div><div className="font-tech text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground">{l}</div></div>
             ))}
           </div>
         </div>
@@ -352,24 +396,24 @@ function Index() {
       </div>
 
       {/* About */}
-      <section id="about" className="topo relative py-28">
-        <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-2">
+      <section id="about" className="topo relative py-16 sm:py-24 lg:py-28">
+        <div className="mx-auto grid max-w-7xl gap-10 sm:gap-16 px-4 sm:px-6 lg:grid-cols-2">
           <div>
             <Label n="01">About</Label>
-            <h2 className="font-display text-5xl font-extrabold uppercase leading-none md:text-6xl">Where young talent becomes <span className="text-primary">elite.</span></h2>
-            <p className="mt-6 text-muted-foreground">RKBA was established in 2022 to develop talented badminton players and promote the sport among young athletes. Structured programs led by experienced coaches and former national players build technical skill, fitness, discipline and sportsmanship.</p>
-            <div className="clip-cut mt-10 border-l-4 border-primary bg-card p-6">
+            <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase leading-tight sm:leading-none">Where young talent becomes <span className="text-primary">elite.</span></h2>
+            <p className="mt-4 sm:mt-6 text-sm sm:text-base text-muted-foreground">RKBA was established in 2022 to develop talented badminton players and promote the sport among young athletes. Structured programs led by experienced coaches and former national players build technical skill, fitness, discipline and sportsmanship.</p>
+            <div className="clip-cut hover-vision mt-8 sm:mt-10 border-l-4 border-primary bg-card p-4 sm:p-6">
               <div className="font-tech text-xs uppercase tracking-widest text-primary">Vision</div>
-              <p className="mt-2 text-lg">To become a leading academy that develops skilled, disciplined and confident players who represent their clubs, schools and country at national and international levels.</p>
+              <p className="mt-2 text-base sm:text-lg">To become a leading academy that develops skilled, disciplined and confident players who represent their clubs, schools and country at national and international levels.</p>
             </div>
           </div>
           <div>
-            <div className="mb-6 font-tech text-xs uppercase tracking-widest text-primary">Mission</div>
+            <div className="mb-4 sm:mb-6 font-tech text-xs uppercase tracking-widest text-primary">Mission</div>
             <ul className="space-y-px">
               {mission.map((m, i) => (
-                <li key={m} className="group flex items-center gap-6 border-b border-border py-5 transition-colors hover:bg-card">
-                  <span className="font-display text-3xl font-extrabold text-muted-foreground transition-colors group-hover:text-primary">0{i + 1}</span>
-                  <span className="text-lg">{m}</span>
+                <li key={m} className="hover-mission group flex items-center gap-4 sm:gap-6 border-b border-border py-4 sm:py-5">
+                  <span className="font-display text-2xl sm:text-3xl font-extrabold text-muted-foreground transition-all duration-300 group-hover:scale-110 group-hover:text-primary">0{i + 1}</span>
+                  <span className="text-base sm:text-lg transition-colors group-hover:text-foreground">{m}</span>
                 </li>
               ))}
             </ul>
@@ -378,21 +422,22 @@ function Index() {
       </section>
 
       {/* Training */}
-      <section id="training" className="border-t border-border py-28">
-        <div className="mx-auto max-w-7xl px-6">
+      <section id="training" className="border-t border-border py-16 sm:py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Label n="02">Programs</Label>
-          <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">Training built for every level</h2>
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
+          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase">Training built for every level</h2>
+          <div className="mt-10 sm:mt-14 grid gap-6 md:grid-cols-2">
             {[
               { t: "Group Training", d: "Practice in a competitive, supportive environment — build teamwork, match experience and consistency.", pts: ["Footwork & technique", "Match strategy", "Fitness conditioning"] },
               { t: "Individual Coaching", d: "One-on-one sessions for advanced technique, tactical improvement and preparation for major tournaments.", pts: ["Personal skill plans", "Tactical analysis", "Tournament preparation"] },
             ].map((p, i) => (
-              <div key={p.t} className="hover-card clip-cut group relative overflow-hidden bg-card p-10">
-                <div className="absolute -right-4 -top-6 font-display text-[9rem] font-extrabold leading-none text-muted transition-colors group-hover:text-primary/15">0{i + 1}</div>
-                <h3 className="relative font-display text-4xl font-extrabold uppercase">{p.t}</h3>
-                <p className="relative mt-4 text-muted-foreground">{p.d}</p>
-                <div className="relative mt-8 flex flex-wrap gap-2">
-                  {p.pts.map((x) => <span key={x} className="border border-primary/40 px-3 py-1 font-tech text-xs uppercase tracking-wider text-primary">{x}</span>)}
+              <div key={p.t} className="hover-card clip-cut group relative overflow-hidden bg-card p-6 sm:p-8 lg:p-10">
+                <div className="absolute -right-3 -top-5 sm:-right-4 sm:-top-6 font-display text-[6rem] sm:text-[8rem] lg:text-[9rem] font-extrabold leading-none text-muted transition-all duration-500 group-hover:text-primary/20 group-hover:scale-110 group-hover:-translate-y-2">0{i + 1}</div>
+                <div className="absolute inset-x-0 bottom-0 h-1 w-0 bg-primary transition-all duration-500 group-hover:w-full" />
+                <h3 className="relative font-display text-2xl sm:text-4xl font-extrabold uppercase">{p.t}</h3>
+                <p className="relative mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground transition-colors duration-300 group-hover:text-foreground">{p.d}</p>
+                <div className="relative mt-6 sm:mt-8 flex flex-wrap gap-2">
+                  {p.pts.map((x) => <span key={x} className="border border-primary/40 px-2.5 sm:px-3 py-1 font-tech text-[10px] sm:text-xs uppercase tracking-wider text-primary transition-all duration-300 group-hover:border-primary group-hover:bg-primary/10">{x}</span>)}
                 </div>
               </div>
             ))}
@@ -401,27 +446,27 @@ function Index() {
       </section>
 
       {/* Coaches */}
-      <section id="coaches" className="topo border-t border-border py-28">
-        <div className="mx-auto max-w-7xl px-6">
+      <section id="coaches" className="topo border-t border-border py-16 sm:py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Label n="03">Coaches</Label>
-          <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">The team behind the wins</h2>
-          <div className="mt-14 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
+          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase">The team behind the wins</h2>
+          <div className="mt-10 sm:mt-14 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
             {coaches.map((c) => (
-              <div key={c.name} className="hover-card group bg-background p-6 hover:bg-card">
+              <div key={c.name} className="hover-card group bg-background p-4 sm:p-6 hover:bg-card">
                 <div className="relative aspect-[4/5] overflow-hidden bg-card">
                   {c.img ? (
                     <img src={c.img} alt={c.name} loading="lazy" className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
                   ) : (
-                    <div className="topo flex h-full w-full items-center justify-center font-display text-7xl font-extrabold text-primary/80">
+                    <div className="topo flex h-full w-full items-center justify-center font-display text-6xl sm:text-7xl font-extrabold text-primary/80 transition-all duration-500 group-hover:text-primary group-hover:scale-110">
                       {c.name.split(" ").map((w) => w[0]).join("")}
                     </div>
                   )}
                   <div className="absolute bottom-0 left-0 h-1 w-0 bg-primary transition-all duration-500 group-hover:w-full" />
                 </div>
-                <div className="mt-6 font-tech text-xs uppercase tracking-widest text-primary">{c.role}</div>
-                <h3 className="mt-1 font-display text-3xl font-bold uppercase leading-tight">{c.name}</h3>
-                <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
-                  {c.creds.map((x) => <li key={x} className="flex gap-2"><span className="text-primary">▸</span>{x}</li>)}
+                <div className="mt-5 sm:mt-6 font-tech text-xs uppercase tracking-widest text-primary">{c.role}</div>
+                <h3 className="mt-1 font-display text-2xl sm:text-3xl font-bold uppercase leading-tight">{c.name}</h3>
+                <ul className="mt-4 sm:mt-5 space-y-2 text-xs sm:text-sm text-muted-foreground">
+                  {c.creds.map((x) => <li key={x} className="flex gap-2 transition-all duration-200 group-hover:translate-x-1"><span className="text-primary">▸</span>{x}</li>)}
                 </ul>
               </div>
             ))}
@@ -430,34 +475,34 @@ function Index() {
       </section>
 
       {/* Achievements */}
-      <section id="achievements" className="border-t border-border py-28">
-        <div className="mx-auto max-w-7xl px-6">
+      <section id="achievements" className="border-t border-border py-16 sm:py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Label n="04">Hall of Fame</Label>
-          <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">Our <span className="text-primary">champions</span></h2>
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
+          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase">Our <span className="text-primary">champions</span></h2>
+          <div className="mt-10 sm:mt-14 grid gap-5 sm:gap-6 md:grid-cols-2">
             {players.map((p) => (
-              <div key={p.name} className="hover-card clip-cut border border-border bg-card p-8">
-                <div className="flex items-start justify-between gap-4">
-                  <h3 className="min-w-0 break-words font-display text-3xl font-extrabold uppercase">{p.name}</h3>
-                  <span className="shrink-0 bg-primary px-3 py-1 font-tech text-xs font-bold text-primary-foreground">{p.tag}</span>
+              <div key={p.name} className="hover-card clip-cut group border border-border bg-card p-5 sm:p-6 lg:p-8">
+                <div className="flex items-start justify-between gap-3 sm:gap-4">
+                  <h3 className="min-w-0 break-words font-display text-2xl sm:text-3xl font-extrabold uppercase">{p.name}</h3>
+                  <span className="shrink-0 bg-primary px-2.5 sm:px-3 py-1 font-tech text-[10px] sm:text-xs font-bold text-primary-foreground transition-all duration-300 group-hover:shadow-[0_0_12px_var(--primary)]">{p.tag}</span>
                 </div>
-                <ul className="mt-6 space-y-3">
-                  {p.wins.map((w) => <li key={w} className="flex gap-3 text-sm text-muted-foreground"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 bg-primary" />{w}</li>)}
+                <ul className="mt-5 sm:mt-6 space-y-2.5 sm:space-y-3">
+                  {p.wins.map((w) => <li key={w} className="flex gap-2.5 sm:gap-3 text-xs sm:text-sm text-muted-foreground transition-all duration-200 group-hover:text-foreground/80"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 bg-primary transition-all duration-300 group-hover:scale-150 group-hover:shadow-[0_0_6px_var(--primary)]" />{w}</li>)}
                 </ul>
               </div>
             ))}
           </div>
 
-          <div className="mt-20">
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <h3 className="font-display text-4xl font-extrabold uppercase">Congratulations <span className="text-primary">wall</span></h3>
+          <div className="mt-16 sm:mt-20">
+            <div className="flex flex-wrap items-end justify-between gap-3 sm:gap-4">
+              <h3 className="font-display text-2xl sm:text-4xl font-extrabold uppercase">Congratulations <span className="text-primary">wall</span></h3>
               <a href={socials.instagram} target="_blank" rel="noreferrer" className="font-tech text-xs uppercase tracking-widest text-primary hover:underline">See more on Instagram →</a>
             </div>
-            <div className="congrats-strip mt-8 overflow-hidden border-y border-border py-4 [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]">
-              <div className="animate-congrats flex w-max gap-4 pr-4 hover:[animation-play-state:paused]">
+            <div className="congrats-strip mt-6 sm:mt-8 overflow-hidden border-y border-border py-4 [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]">
+              <div className="animate-congrats flex w-max gap-3 sm:gap-4 pr-4 hover:[animation-play-state:paused]">
                 {[...congrats, ...congrats].map((c, i) => (
                   <figure key={`${c.img}-${i}`} className="hover-card group shrink-0 overflow-hidden border border-border bg-card">
-                    <img src={c.img} alt={c.caption} loading="lazy" className="h-72 w-auto object-cover transition-transform duration-700 group-hover:scale-105 md:h-80" />
+                    <img src={c.img} alt={c.caption} loading="lazy" className="h-60 sm:h-72 md:h-80 w-auto object-cover transition-transform duration-700 group-hover:scale-105" />
                   </figure>
                 ))}
               </div>
@@ -467,11 +512,11 @@ function Index() {
       </section>
 
       {/* Events */}
-      <section id="events" className="topo border-t border-border py-28">
-        <div className="mx-auto max-w-7xl px-6">
+      <section id="events" className="topo border-t border-border py-16 sm:py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Label n="05">Events</Label>
-          <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">Events by <span className="text-primary">RKBA</span></h2>
-          <div className="mt-14 grid items-stretch gap-6 md:grid-cols-3">
+          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase">Events by <span className="text-primary">RKBA</span></h2>
+          <div className="mt-10 sm:mt-14 grid items-stretch gap-6 md:grid-cols-3">
             {events.map((e) => (
               <article
                 key={e.title}
@@ -480,33 +525,34 @@ function Index() {
               >
                 <div className="relative aspect-[9/16] shrink-0 overflow-hidden bg-background">
                   {e.cover ? (
-                    <img src={e.cover} alt={e.title} loading="lazy" className="h-full w-full object-contain" />
+                    <img src={e.cover} alt={e.title} loading="lazy" className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105" />
                   ) : e.photos && e.photos.length >= 3 ? (
                     <div className="grid h-full grid-rows-3 gap-1">
                       {e.photos.slice(0, 3).map((p, i) => (
-                        <img key={p} src={p} alt={`${e.title} — photo ${i + 1}`} loading="lazy" className="h-full min-h-0 w-full object-contain" />
+                        <img key={p} src={p} alt={`${e.title} — photo ${i + 1}`} loading="lazy" className="h-full min-h-0 w-full object-contain transition-transform duration-700 group-hover:scale-105" />
                       ))}
                     </div>
                   ) : e.video ? (
-                    <video src={e.video} aria-label={e.title} autoPlay muted loop playsInline controls preload="metadata" className="h-full w-full object-contain" />
+                    <video data-lazy data-src={e.video} aria-label={e.title} muted loop playsInline controls preload="none" className="h-full w-full object-contain" />
                   ) : (
-                    <img src={e.img} alt={e.title} loading="lazy" className="h-full w-full object-contain" />
+                    <img src={e.img} alt={e.title} loading="lazy" className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105" />
                   )}
                   {e.photos && (
-                    <div className="absolute right-3 top-3 flex items-center gap-1.5 bg-background/80 px-3 py-1.5 font-tech text-xs font-semibold uppercase tracking-wider text-primary backdrop-blur-sm">
+                    <div className="absolute right-3 top-3 flex items-center gap-1.5 bg-background/80 px-2.5 sm:px-3 py-1 sm:py-1.5 font-tech text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-primary backdrop-blur-sm transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
                       <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor"><path d="M9 3l-1.5 2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.5L15 3H9zm3 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
                       {e.photos.length} photos
                     </div>
                   )}
+                  <div className="absolute inset-x-0 bottom-0 h-0.5 w-0 bg-primary transition-all duration-500 group-hover:w-full" />
                 </div>
-                <div className="min-h-64 flex-1 p-6">
+                <div className="min-h-56 sm:min-h-64 flex-1 p-4 sm:p-6">
                   <div className="font-tech text-xs uppercase tracking-widest text-primary">{e.date} · {e.place}</div>
-                  <h3 className="mt-2 font-display text-2xl font-extrabold uppercase leading-tight">{e.title}</h3>
-                  <p className="mt-3 text-sm text-muted-foreground">{e.desc}</p>
+                  <h3 className="mt-2 font-display text-xl sm:text-2xl font-extrabold uppercase leading-tight">{e.title}</h3>
+                  <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground/80">{e.desc}</p>
                   {e.photos && (
                     <span className="mt-4 inline-flex items-center gap-2 font-tech text-xs font-bold uppercase tracking-widest text-primary">
                       View gallery
-                      <svg viewBox="0 0 24 24" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                      <svg viewBox="0 0 24 24" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                     </span>
                   )}
                 </div>
@@ -517,37 +563,37 @@ function Index() {
       </section>
 
       {/* Elite Shuttle collaboration */}
-      <section id="collab" className="border-t border-border py-28">
-        <div className="mx-auto max-w-7xl px-6">
+      <section id="collab" className="border-t border-border py-16 sm:py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Label n="06">Collaboration</Label>
-          <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">RKBA <span className="text-primary">×</span> Elite Shuttle</h2>
-          <p className="mt-6 max-w-2xl text-muted-foreground">A special collaboration between RKBA and Elite Shuttle — joint training sessions, friendly matches, media days and a podcast episode celebrating both academies.</p>
+          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase">RKBA <span className="text-primary">×</span> Elite Shuttle</h2>
+          <p className="mt-4 sm:mt-6 max-w-2xl text-sm sm:text-base text-muted-foreground">A special collaboration between RKBA and Elite Shuttle — joint training sessions, friendly matches, media days and a podcast episode celebrating both academies.</p>
 
           {/* Podcast feature */}
-          <div className="hover-card clip-cut mt-14 grid overflow-hidden border border-border bg-card md:grid-cols-2">
+          <div className="hover-card clip-cut mt-10 sm:mt-14 grid overflow-hidden border border-border bg-card md:grid-cols-2">
             <div className="group overflow-hidden">
               <img src={podcast.url} alt="The Badminton Podcast — Episode 01, RKBA x EliteShuttler thumbnail" loading="lazy" width={1280} height={960} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
-            <div className="flex flex-col justify-center p-8 md:p-12">
+            <div className="flex flex-col justify-center p-6 sm:p-8 md:p-12">
               <div className="font-tech text-xs uppercase tracking-widest text-primary">Eliteshuttler Podcast · Episode 01</div>
-              <h3 className="mt-3 font-display text-3xl font-extrabold uppercase leading-tight md:text-4xl">The RKBA × Elite Shuttle Podcast</h3>
-              <p className="mt-4 font-tech text-xs text-primary">12 October 2026</p>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Brian Gomez, co-founder of Eliteshuttler, sits down with Ranthushka Karunathilaka — a former Sri Lankan national champion and ranked international badminton player, now coaching the next generation.</p>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">From challenges on court to lessons beyond it, Ranthushka shares his journey, his perspective on the game, and why everyone should give badminton a try — and how it can change our lives.</p>
-              <a href="https://youtu.be/9mA8gtlc2wo?si=otW1WHZ-sCDxgSdV" target="_blank" rel="noreferrer" className="hover-action clip-cut glow mt-8 inline-flex w-fit items-center gap-2 bg-primary px-6 py-3 font-tech text-sm font-bold uppercase tracking-wider text-primary-foreground">
+              <h3 className="mt-2.5 sm:mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-extrabold uppercase leading-tight">The RKBA × Elite Shuttle Podcast</h3>
+              <p className="mt-3 sm:mt-4 font-tech text-xs text-primary">12 October 2026</p>
+              <p className="mt-3 sm:mt-4 text-xs sm:text-sm leading-relaxed text-muted-foreground">Brian Gomez, co-founder of Eliteshuttler, sits down with Ranthushka Karunathilaka — a former Sri Lankan national champion and ranked international badminton player, now coaching the next generation.</p>
+              <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm leading-relaxed text-muted-foreground">From challenges on court to lessons beyond it, Ranthushka shares his journey, his perspective on the game, and why everyone should give badminton a try — and how it can change our lives.</p>
+              <a href="https://youtu.be/9mA8gtlc2wo?si=otW1WHZ-sCDxgSdV" target="_blank" rel="noreferrer" className="hover-action clip-cut glow mt-6 sm:mt-8 inline-flex w-fit items-center gap-2 bg-primary px-5 sm:px-6 py-3 font-tech text-xs sm:text-sm font-bold uppercase tracking-wider text-primary-foreground">
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M8 5v14l11-7z" /></svg> Watch the episode
               </a>
             </div>
           </div>
 
           {/* Videos + photos */}
-          <div className="mt-6 grid gap-6 md:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <article className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
-              <video src={collabVideo.url} poster={collabVideoPoster.url} autoPlay muted loop playsInline preload="auto" className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <video data-lazy data-src={collabVideo.url} poster={collabVideoPoster.url} muted loop playsInline preload="none" className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="fade-bottom pointer-events-none absolute inset-0" />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5">
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 sm:p-5">
                 <div className="font-tech text-xs uppercase tracking-widest text-primary">Partnership day</div>
-                <div className="font-tech text-sm font-semibold uppercase">RKBA × Elite Shuttle</div>
+                <div className="font-tech text-xs sm:text-sm font-semibold uppercase">RKBA × Elite Shuttle</div>
               </div>
             </article>
             {[
@@ -560,12 +606,12 @@ function Index() {
                 <div className="fade-bottom absolute inset-0" />
                 {c.video && (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="glow flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform group-hover:scale-110">
-                      <svg viewBox="0 0 24 24" className="ml-1 h-5 w-5" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                    <span className="glow flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform group-hover:scale-110">
+                      <svg viewBox="0 0 24 24" className="ml-1 h-4 w-4 sm:h-5 sm:w-5" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
                     </span>
                   </div>
                 )}
-                <div className="absolute inset-x-0 bottom-0 p-5 font-tech text-sm font-semibold uppercase">{c.title}</div>
+                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 font-tech text-xs sm:text-sm font-semibold uppercase">{c.title}</div>
               </article>
             ))}
           </div>
@@ -573,33 +619,36 @@ function Index() {
       </section>
 
       {/* TikTok */}
-      <section id="tiktok" className="border-t border-border py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-wrap items-end justify-between gap-6">
+      <section id="tiktok" className="border-t border-border py-16 sm:py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="flex flex-wrap items-end justify-between gap-4 sm:gap-6">
             <div>
               <Label n="07">On TikTok</Label>
-              <h2 className="font-display text-5xl font-extrabold uppercase md:text-6xl">Watch us <span className="text-primary">train</span></h2>
+              <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase">Watch us <span className="text-primary">train</span></h2>
             </div>
-            <a href={socials.tiktok} target="_blank" rel="noreferrer" className="hover-action clip-cut flex items-center gap-2 bg-primary px-6 py-3 font-tech text-sm font-bold uppercase tracking-wider text-primary-foreground"><TikTokIcon /> Follow on TikTok</a>
+            <a href={socials.tiktok} target="_blank" rel="noreferrer" className="hover-action clip-cut flex items-center gap-2 bg-primary px-5 sm:px-6 py-2.5 sm:py-3 font-tech text-xs sm:text-sm font-bold uppercase tracking-wider text-primary-foreground"><TikTokIcon /> Follow on TikTok</a>
           </div>
-          <div className="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <div className="mt-10 sm:mt-14 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             {tiktoks.map((v) => (
               <div
                 key={v.title}
                 className="hover-card group relative block aspect-[9/16] overflow-hidden border border-border"
               >
                 <video
-                  src={v.src}
+                  data-lazy
+                  data-src={v.src}
                   poster={v.poster}
-                  autoPlay
                   muted
                   loop
                   playsInline
-                  preload="auto"
+                  preload="none"
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="fade-bottom pointer-events-none absolute inset-0" />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 font-tech text-sm font-semibold uppercase">{v.title}</div>
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3 sm:p-4">
+                  <div className="font-tech text-xs sm:text-sm font-semibold uppercase transition-all duration-300 group-hover:translate-y-[-4px] group-hover:text-primary">{v.title}</div>
+                </div>
+                <div className="absolute inset-x-0 bottom-0 h-0.5 w-0 bg-primary transition-all duration-500 group-hover:w-full" />
               </div>
             ))}
           </div>
@@ -607,51 +656,50 @@ function Index() {
         </div>
       </section>
 
-
       {/* CTA */}
-      <section id="join" className="topo relative overflow-hidden border-t border-border bg-card py-28 text-center">
-        <img src={logo.url} alt="" className="mx-auto h-28 w-28 rounded-full object-cover glow" />
-        <h2 className="mx-auto mt-8 max-w-3xl px-6 font-display text-5xl font-extrabold uppercase leading-none md:text-7xl">Ready to step on <span className="text-primary">court?</span></h2>
-        <p className="mx-auto mt-6 max-w-md px-6 text-muted-foreground">Join group sessions or book individual coaching with RKBA today.</p>
-        <div className="mt-10 flex justify-center"><Socials size="h-12 w-12" /></div>
-        <a href="#top" className="hover-action clip-cut glow mt-8 inline-block bg-primary px-10 py-4 font-tech font-bold uppercase tracking-wider text-primary-foreground">Get in touch</a>
+      <section id="join" className="topo relative overflow-hidden border-t border-border bg-card py-16 sm:py-24 lg:py-28 text-center">
+        <img src={logo.url} alt="" className="glow mx-auto h-20 w-20 sm:h-28 sm:w-28 rounded-full object-cover transition-transform duration-500 hover:scale-110" />
+        <h2 className="mx-auto mt-6 sm:mt-8 max-w-3xl px-4 sm:px-6 font-display text-3xl sm:text-5xl md:text-7xl font-extrabold uppercase leading-tight sm:leading-none">Ready to step on <span className="text-primary">court?</span></h2>
+        <p className="mx-auto mt-4 sm:mt-6 max-w-md px-4 sm:px-6 text-sm sm:text-base text-muted-foreground">Join group sessions or book individual coaching with RKBA today.</p>
+        <div className="mt-8 sm:mt-10 flex justify-center"><Socials size="h-10 w-10 sm:h-12 sm:w-12" /></div>
+        <a href="#top" className="hover-action clip-cut glow mt-6 sm:mt-8 inline-block bg-primary px-8 sm:px-10 py-3.5 sm:py-4 font-tech font-bold uppercase tracking-wider text-primary-foreground">Get in touch</a>
       </section>
 
       <footer className="topo relative border-t border-border bg-card">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto grid max-w-7xl gap-8 sm:gap-12 px-4 sm:px-6 py-12 sm:py-16 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-4">
-              <img src={logo.url} alt="RKBA logo" className="h-16 w-16 rounded-full object-cover" />
-              <div className="font-display text-2xl font-extrabold uppercase leading-none text-primary">
-                Ranthushka Karunathilaka<span className="block font-tech text-xs tracking-[0.3em] text-foreground">Badminton Academy</span>
+            <div className="flex items-center gap-3.5 sm:gap-4">
+              <img src={logo.url} alt="RKBA logo" className="h-12 w-12 sm:h-16 sm:w-16 rounded-full object-cover" />
+              <div className="font-display text-xl sm:text-2xl font-extrabold uppercase leading-none text-primary">
+                Ranthushka Karunathilaka<span className="block font-tech text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] text-foreground">Badminton Academy</span>
               </div>
             </div>
-            <p className="mt-6 max-w-sm text-sm text-muted-foreground">Developing skilled, disciplined and confident badminton players since 2022.</p>
-            <div className="mt-6"><Socials /></div>
+            <p className="mt-4 sm:mt-6 max-w-sm text-xs sm:text-sm text-muted-foreground">Developing skilled, disciplined and confident badminton players since 2022.</p>
+            <div className="mt-5 sm:mt-6"><Socials /></div>
           </div>
           <div>
             <div className="font-tech text-xs uppercase tracking-widest text-primary">Explore</div>
-            <ul className="mt-4 space-y-2 text-sm">
+            <ul className="mt-3.5 sm:mt-4 space-y-2 text-xs sm:text-sm">
               {nav.map(([l, h]) => <li key={h}><a href={h} className="hover-nav text-muted-foreground hover:text-primary">{l}</a></li>)}
             </ul>
           </div>
           <div>
             <div className="font-tech text-xs uppercase tracking-widest text-primary">Call the academy</div>
-            <a href={`tel:${PHONE}`} className="hover-action clip-cut glow mt-4 flex items-center gap-3 bg-primary px-5 py-4 font-tech font-bold uppercase tracking-wider text-primary-foreground">
+            <a href={`tel:${PHONE}`} className="hover-action clip-cut glow mt-3.5 sm:mt-4 flex items-center gap-3 bg-primary px-4 sm:px-5 py-3.5 sm:py-4 font-tech text-xs sm:font-bold uppercase tracking-wider text-primary-foreground">
               <PhoneIcon /> {PHONE_LABEL}
             </a>
-            <p className="mt-3 text-xs text-muted-foreground">Tap to call for training & enrolment.</p>
+            <p className="mt-2.5 sm:mt-3 text-xs text-muted-foreground">Tap to call for training & enrolment.</p>
           </div>
         </div>
         <div className="border-t border-border">
-          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-6 font-tech text-xs uppercase tracking-widest text-muted-foreground md:flex-row">
+          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 sm:px-6 py-5 sm:py-6 font-tech text-[11px] sm:text-xs uppercase tracking-widest text-muted-foreground md:flex-row text-center md:text-left">
             <span>© {new Date().getFullYear()} RKBA. All rights reserved.</span>
             <span className="text-primary">Train · Compete · Excel</span>
           </div>
         </div>
       </footer>
 
-      <a href={`tel:${PHONE}`} aria-label="Call the academy" className="glow fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform hover:scale-110">
+      <a href={`tel:${PHONE}`} aria-label="Call the academy" className="glow fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform hover:scale-110">
         <span className="absolute inset-0 animate-ping rounded-full bg-primary opacity-30" />
         <PhoneIcon />
       </a>

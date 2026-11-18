@@ -133,12 +133,141 @@
 @keyframes float-up { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: .9; } 100% { transform: translateY(-100vh); opacity: 0; } }
 @utility animate-float { animation: float-up 9s linear infinite; }
 
+@keyframes shuttle-flight {
+  0% { transform: translateY(0) rotate(-6deg) scale(1); }
+  25% { transform: translateY(-14px) rotate(8deg) scale(1.06); }
+  55% { transform: translateY(6px) rotate(-8deg) scale(0.97); }
+  75% { transform: translateY(-6px) rotate(4deg) scale(1.02); }
+  100% { transform: translateY(0) rotate(-6deg) scale(1); }
+}
+@utility animate-shuttle-flight { animation: shuttle-flight 2.4s ease-in-out infinite; }
+
+/* ─────────────────────────────────────────────
+   Badminton Two-Player Rally Animations
+─────────────────────────────────────────────── */
+@keyframes rally-shuttle {
+  0% {
+    transform: translate(80px, 78px) rotate(35deg);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1);
+  }
+  25% {
+    transform: translate(170px, 24px) rotate(-5deg);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.8, 0.5);
+  }
+  48% {
+    transform: translate(252px, 64px) rotate(-30deg);
+  }
+  50% {
+    transform: translate(252px, 64px) rotate(205deg);
+    animation-timing-function: cubic-bezier(0.1, 0.85, 0.3, 1);
+  }
+  75% {
+    transform: translate(170px, 72px) rotate(195deg);
+    animation-timing-function: cubic-bezier(0.3, 0.1, 0.6, 0.8);
+  }
+  98% {
+    transform: translate(80px, 78px) rotate(190deg);
+  }
+  100% {
+    transform: translate(80px, 78px) rotate(35deg);
+  }
+}
+@utility animate-rally-shuttle {
+  animation: rally-shuttle 1.6s infinite;
+}
+
+@keyframes rally-left-arm {
+  0% { transform: rotate(30deg); }
+  14% { transform: rotate(-30deg); }
+  35% { transform: rotate(-5deg); }
+  75% { transform: rotate(15deg); }
+  90% { transform: rotate(35deg); }
+  100% { transform: rotate(30deg); }
+}
+@utility animate-rally-left-arm {
+  animation: rally-left-arm 1.6s ease-in-out infinite;
+}
+
+@keyframes rally-right-arm {
+  0% { transform: rotate(-10deg); }
+  32% { transform: rotate(50deg); }
+  50% { transform: rotate(-55deg); }
+  68% { transform: rotate(-25deg); }
+  85% { transform: rotate(-5deg); }
+  100% { transform: rotate(-10deg); }
+}
+@utility animate-rally-right-arm {
+  animation: rally-right-arm 1.6s ease-in-out infinite;
+}
+
+@keyframes rally-left-body {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(3px, 2px); }
+  30% { transform: translate(-2px, -1px); }
+  65% { transform: translate(0, 0); }
+  88% { transform: translate(2px, 1px); }
+  100% { transform: translate(0, 0); }
+}
+@utility animate-rally-left-body {
+  animation: rally-left-body 1.6s ease-in-out infinite;
+}
+
+@keyframes rally-right-body {
+  0% { transform: translate(0, 0); }
+  32% { transform: translate(-2px, -8px); }
+  50% { transform: translate(-4px, -3px); }
+  68% { transform: translate(0, 2px); }
+  85% { transform: translate(1px, 0); }
+  100% { transform: translate(0, 0); }
+}
+@utility animate-rally-right-body {
+  animation: rally-right-body 1.6s ease-in-out infinite;
+}
+
+@keyframes rally-hit-left {
+  0%, 100% { opacity: 0; transform: scale(0.2); }
+  1% { opacity: 1; transform: scale(0.5); }
+  12% { opacity: 0; transform: scale(1.8); }
+}
+@utility animate-rally-hit-left {
+  animation: rally-hit-left 1.6s ease-out infinite;
+}
+
+@keyframes rally-hit-right {
+  0%, 49%, 100% { opacity: 0; transform: scale(0.2); }
+  50% { opacity: 1; transform: scale(0.5); }
+  62% { opacity: 0; transform: scale(1.8); }
+}
+@utility animate-rally-hit-right {
+  animation: rally-hit-right 1.6s ease-out infinite;
+}
+
 .reveal { opacity: 0; transform: translateY(32px); }
 .reveal-in { opacity: 1; transform: none; }
 .reveal:not(.hover-card) { transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
 @keyframes congrats-scroll { to { transform: translateX(-50%); } }
 @utility animate-congrats { animation: congrats-scroll 124s linear infinite; }
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
 html { scroll-behavior: smooth; }
+
+/* ─────────────────────────────────────────────
+   Section hover / scroll-reveal interactions
+─────────────────────────────────────────────── */
+
+/* Mission row: slide-in and color shift on hover */
+.hover-mission {
+  transition: padding-left 240ms ease, background-color 240ms ease;
+}
+
+/* Vision blockquote lift */
+.hover-vision {
+  transition: translate 300ms ease, box-shadow 300ms ease;
+}
 
 /* Shared motion keeps hover feedback consistent without moving page layout. */
 .hover-action {
@@ -167,11 +296,69 @@ html { scroll-behavior: smooth; }
   outline-offset: 5px;
 }
 @media (hover: hover) and (pointer: fine) {
-  .hover-action:hover { translate: 0 -3px; box-shadow: var(--shadow-glow); }
-  .hover-action:hover svg { transform: scale(1.12); }
-  .hover-card:hover { translate: 0 -8px; border-color: var(--primary); box-shadow: var(--shadow-glow); }
-  .hover-card:hover h3 { color: var(--primary); }
-  .hover-nav:hover::after, .hover-nav:focus-visible::after { transform: scaleX(1); }
+  .hover-action:hover {
+    translate: 0 -3px;
+    box-shadow: 0 0 25px color-mix(in oklab, var(--primary) 50%, transparent);
+  }
+  .hover-action:hover svg {
+    transform: scale(1.15);
+  }
+
+  /* Section interactive hover dynamics */
+  section {
+    transition: border-color 300ms ease;
+  }
+  section:hover .section-label-line {
+    width: 4rem;
+    box-shadow: 0 0 12px var(--primary);
+  }
+  section:hover h2 span.text-primary {
+    text-shadow: 0 0 24px color-mix(in oklab, var(--primary) 70%, transparent);
+  }
+
+  /* Cards hover lift, neon outline and athletic glow */
+  .hover-card {
+    transition: opacity 700ms cubic-bezier(.2,.7,.2,1),
+                transform 700ms cubic-bezier(.2,.7,.2,1),
+                translate 320ms cubic-bezier(.2,.7,.2,1),
+                border-color 280ms ease,
+                box-shadow 320ms ease,
+                background-color 280ms ease;
+  }
+  .hover-card:hover {
+    translate: 0 -8px;
+    border-color: var(--primary) !important;
+    box-shadow: 0 16px 36px -10px color-mix(in oklab, var(--primary) 40%, transparent),
+                0 0 0 1px color-mix(in oklab, var(--primary) 35%, transparent);
+  }
+  .hover-card:hover h3 {
+    color: var(--primary);
+  }
+
+  /* Mission and list hover effects */
+  .hover-mission {
+    transition: translate 240ms ease, background-color 240ms ease, padding-left 240ms ease;
+  }
+  .hover-mission:hover {
+    translate: 8px 0;
+    background-color: var(--card);
+    padding-left: 12px;
+  }
+
+  /* Vision card hover effect */
+  .hover-vision {
+    transition: translate 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+  }
+  .hover-vision:hover {
+    translate: 0 -4px;
+    box-shadow: 0 12px 28px -8px color-mix(in oklab, var(--primary) 35%, transparent);
+  }
+
+  .hover-nav:hover::after,
+  .hover-nav:focus-visible::after {
+    transform: scaleX(1);
+    box-shadow: 0 0 8px var(--primary);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
