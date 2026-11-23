@@ -453,20 +453,26 @@ function Index() {
           <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase">The team behind the wins</h2>
           <div className="mt-10 sm:mt-14 grid gap-px bg-border sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             {coaches.map((c) => (
-              <div key={c.name} className="hover-card group bg-background p-4 sm:p-6 hover:bg-card">
-                <div className="relative aspect-[4/5] overflow-hidden bg-card">
-                  {c.img ? (
-                    <img src={c.img} alt={c.name} loading="lazy" className="h-full w-full object-cover object-top grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
-                  ) : (
-                    <div className="topo flex h-full w-full items-center justify-center font-display text-6xl sm:text-7xl font-extrabold text-primary/80 transition-all duration-500 group-hover:text-primary group-hover:scale-110">
-                      {c.name.split(" ").map((w) => w[0]).join("")}
-                    </div>
-                  )}
-                  <div className="absolute bottom-0 left-0 h-1 w-0 bg-primary transition-all duration-500 group-hover:w-full" />
+              <div key={c.name} className="hover-card group flex flex-col justify-between h-full bg-background p-4 sm:p-5 hover:bg-card">
+                <div>
+                  <div className="relative aspect-[4/5] overflow-hidden bg-card">
+                    {c.img ? (
+                      <img src={c.img} alt={c.name} loading="lazy" className="h-full w-full object-cover object-top grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
+                    ) : (
+                      <div className="topo flex h-full w-full items-center justify-center font-display text-6xl sm:text-7xl font-extrabold text-primary/80 transition-all duration-500 group-hover:text-primary group-hover:scale-110">
+                        {c.name.split(" ").map((w) => w[0]).join("")}
+                      </div>
+                    )}
+                    <div className="absolute bottom-0 left-0 h-1 w-0 bg-primary transition-all duration-500 group-hover:w-full" />
+                  </div>
+                  <div className="mt-4 sm:mt-5 font-tech text-[10px] sm:text-xs uppercase tracking-wider text-primary min-h-[2.25rem] flex items-center leading-tight">
+                    {c.role}
+                  </div>
+                  <h3 className="mt-1 font-display text-xl sm:text-2xl font-bold uppercase leading-snug min-h-[3.25rem] sm:min-h-[3.75rem] flex items-start break-words">
+                    {c.name}
+                  </h3>
                 </div>
-                <div className="mt-5 sm:mt-6 font-tech text-xs uppercase tracking-widest text-primary">{c.role}</div>
-                <h3 className="mt-1 font-display text-2xl sm:text-3xl font-bold uppercase leading-tight">{c.name}</h3>
-                <ul className="mt-4 sm:mt-5 space-y-2 text-xs sm:text-sm text-muted-foreground">
+                <ul className="mt-4 sm:mt-5 space-y-2 text-xs sm:text-sm text-muted-foreground border-t border-border/30 pt-3">
                   {c.creds.map((x) => <li key={x} className="flex gap-2 transition-all duration-200 group-hover:translate-x-1"><span className="text-primary">▸</span>{x}</li>)}
                 </ul>
               </div>
@@ -587,8 +593,8 @@ function Index() {
             </div>
           </div>
 
-          {/* Videos + photos */}
-          <div className="mt-6 grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Video + Photo showcase */}
+          <div className="mt-6 grid gap-4 sm:gap-6 sm:grid-cols-2 max-w-4xl">
             <article className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
               <video data-lazy data-src={collabVideo.url} poster={collabVideoPoster.url} muted loop playsInline preload="none" className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="fade-bottom pointer-events-none absolute inset-0" />
@@ -597,24 +603,16 @@ function Index() {
                 <div className="font-tech text-xs sm:text-sm font-semibold uppercase">RKBA × Elite Shuttle</div>
               </div>
             </article>
-            {[
-              { img: collab2, title: "Friendly match highlights", video: true },
-              { img: collab1, title: "Joint training session", video: true },
-              { img: collab1, title: "Media day & team photos", video: false },
-            ].map((c) => (
-              <article key={c.title} className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
-                <img src={c.img} alt={c.title} loading="lazy" className={`w-full object-cover transition-transform duration-700 group-hover:scale-110 ${c.video ? "aspect-[3/4]" : "aspect-[3/4]"}`} />
-                <div className="fade-bottom absolute inset-0" />
-                {c.video && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="glow flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform group-hover:scale-110">
-                      <svg viewBox="0 0 24 24" className="ml-1 h-4 w-4 sm:h-5 sm:w-5" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-                    </span>
-                  </div>
-                )}
-                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 font-tech text-xs sm:text-sm font-semibold uppercase">{c.title}</div>
-              </article>
-            ))}
+
+            {/* Photo showcase slot */}
+            <article className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
+              <img src={collab1} alt="RKBA × Elite Shuttle collaboration" loading="lazy" className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+              <div className="fade-bottom pointer-events-none absolute inset-0" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                <div className="font-tech text-xs uppercase tracking-widest text-primary">Photo showcase</div>
+                <div className="font-tech text-xs sm:text-sm font-semibold uppercase">RKBA × Elite Shuttle</div>
+              </div>
+            </article>
           </div>
         </div>
       </section>
