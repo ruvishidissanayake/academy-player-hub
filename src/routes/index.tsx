@@ -182,8 +182,8 @@ const mission = [
 const coaches = [
   { img: "", role: "Head Coach", name: "Ranthushka Sasindu", creds: ["South Asian Medalist", "Former National Ranked Player", "BWF Coaching Course – Level 1"] },
   { img: "", role: "Assistant Coach", name: "Ramesh Chanaka", creds: ["BWF Disability Coaching – Level 1", "BWF Coaching Course – Level 1", "SLB Coaching Course – Level 1"] },
-  { img: "", role: "Assistant Coach & Manager", name: "Surani Wickramasinghe", creds: ["NISS & SLB Coaching – Level 1", "Former National Player", "Former Sri Lanka University Team"] },
-  { img: "", role: "Assistant Coach", name: "Chamindu Shihara", creds: ["SLB Level 01 Completed"] },
+  { img: "/coaches/coach-shakya.jpg", role: "Assistant Coach & Manager", name: "Shakya Wickramasinghe", creds: ["NISS & SLB Coaching – Level 1", "Former National Player", "Former Sri Lanka University Team"] },
+  { img: "/coaches/coach-chamidu.jpg", role: "Assistant Coach", name: "Chamindu Shihara", creds: ["SLB Level 01 Completed"] },
 ];
 
 const players = [
@@ -455,7 +455,7 @@ function Index() {
               <div key={c.name} className="hover-card group bg-background p-4 sm:p-6 hover:bg-card">
                 <div className="relative aspect-[4/5] overflow-hidden bg-card">
                   {c.img ? (
-                    <img src={c.img} alt={c.name} loading="lazy" className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
+                    <img src={c.img} alt={c.name} loading="lazy" className="h-full w-full object-cover object-top grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
                   ) : (
                     <div className="topo flex h-full w-full items-center justify-center font-display text-6xl sm:text-7xl font-extrabold text-primary/80 transition-all duration-500 group-hover:text-primary group-hover:scale-110">
                       {c.name.split(" ").map((w) => w[0]).join("")}
