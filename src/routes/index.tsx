@@ -180,10 +180,11 @@ const mission = [
 ];
 
 const coaches = [
-  { img: "", role: "Head Coach", name: "Ranthushka Sasindu", creds: ["South Asian Medalist", "Former National Ranked Player", "BWF Coaching Course – Level 1"] },
-  { img: "", role: "Assistant Coach", name: "Ramesh Chanaka", creds: ["BWF Disability Coaching – Level 1", "BWF Coaching Course – Level 1", "SLB Coaching Course – Level 1"] },
+  { img: "/coaches/coach-ranthushka.jpg", role: "Head Coach", name: "Ranthushka Sasindu", creds: ["South Asian Medalist", "Former National Ranked Player", "BWF Coaching Course – Level 1"] },
+  { img: "/coaches/coach-ramesh.jpg", role: "Assistant Coach", name: "Ramesh Chanaka", creds: ["BWF Disability Coaching – Level 1", "BWF Coaching Course – Level 1", "SLB Coaching Course – Level 1"] },
   { img: "/coaches/coach-shakya.jpg", role: "Assistant Coach & Manager", name: "Shakya Wickramasinghe", creds: ["NISS & SLB Coaching – Level 1", "Former National Player", "Former Sri Lanka University Team"] },
   { img: "/coaches/coach-chamidu.jpg", role: "Assistant Coach", name: "Chamindu Shihara", creds: ["SLB Level 01 Completed"] },
+  { img: "/coaches/coach-shafran.jpg", role: "Assistant Coach", name: "Shafran", creds: ["SLB Coaching Course – Level 1", "Junior Development Coach"] },
 ];
 
 const players = [
@@ -381,7 +382,7 @@ function Index() {
             <a href="#achievements" className="hover-action border border-foreground/30 px-6 sm:px-8 py-3.5 sm:py-4 text-center font-tech font-bold uppercase tracking-wider hover:border-primary hover:text-primary">Our Champions</a>
           </div>
           <div className="mt-12 sm:mt-16 grid max-w-2xl grid-cols-3 gap-3 sm:gap-6 border-t border-border pt-5 sm:pt-6">
-            {[["2022", "Founded"], ["4", "Expert coaches"], ["20+", "Titles & podiums"]].map(([v, l]) => (
+            {[["2022", "Founded"], ["5", "Expert coaches"], ["20+", "Titles & podiums"]].map(([v, l]) => (
               <div key={l}><div className="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary">{v}</div><div className="font-tech text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground">{l}</div></div>
             ))}
           </div>
@@ -450,7 +451,7 @@ function Index() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Label n="03">Coaches</Label>
           <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase">The team behind the wins</h2>
-          <div className="mt-10 sm:mt-14 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 sm:mt-14 grid gap-px bg-border sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             {coaches.map((c) => (
               <div key={c.name} className="hover-card group bg-background p-4 sm:p-6 hover:bg-card">
                 <div className="relative aspect-[4/5] overflow-hidden bg-card">
