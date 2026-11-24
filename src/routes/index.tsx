@@ -183,8 +183,8 @@ const coaches = [
   { img: "/coaches/coach-ranthushka.jpg", role: "Head Coach", name: "Ranthushka Sasindu", creds: ["South Asian Medalist", "Former National Ranked Player", "BWF Coaching Course – Level 1"] },
   { img: "/coaches/coach-ramesh.jpg", role: "Assistant Coach", name: "Ramesh Chanaka", creds: ["BWF Disability Coaching – Level 1", "BWF Coaching Course – Level 1", "SLB Coaching Course – Level 1"] },
   { img: "/coaches/coach-shakya.jpg", role: "Assistant Coach & Manager", name: "Shakya Wickramasinghe", creds: ["NISS & SLB Coaching – Level 1", "Former National Player", "Former Sri Lanka University Team"] },
-  { img: "/coaches/coach-chamidu.jpg", role: "Assistant Coach", name: "Chamindu Shihara", creds: ["SLB Level 01 Completed"] },
-  { img: "/coaches/coach-shafran.jpg", role: "Assistant Coach", name: "Shafran", creds: ["SLB Coaching Course – Level 1", "Junior Development Coach"] },
+  { img: "/coaches/coach-chamidu.jpg", role: "Assistant Coach", name: "Chamindu Shihara", creds: ["SLB Coaching Course – Level 1", "Junior Development Coach", "RKBA Coaching Team"] },
+  { img: "/coaches/coach-shafran.jpg", role: "Assistant Coach", name: "Shafran", creds: ["SLB Coaching Course – Level 1", "Junior Development Coach", "RKBA Coaching Team"] },
 ];
 
 const players = [
@@ -453,7 +453,7 @@ function Index() {
           <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase">The team behind the wins</h2>
           <div className="mt-10 sm:mt-14 grid gap-px bg-border sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             {coaches.map((c) => (
-              <div key={c.name} className="hover-card group flex flex-col justify-between h-full bg-background p-4 sm:p-5 hover:bg-card">
+              <div key={c.name} className="hover-card group flex flex-col h-full bg-background p-4 sm:p-5 hover:bg-card">
                 <div>
                   <div className="relative aspect-[4/5] overflow-hidden bg-card">
                     {c.img ? (
@@ -465,16 +465,23 @@ function Index() {
                     )}
                     <div className="absolute bottom-0 left-0 h-1 w-0 bg-primary transition-all duration-500 group-hover:w-full" />
                   </div>
-                  <div className="mt-4 sm:mt-5 font-tech text-[10px] sm:text-xs uppercase tracking-wider text-primary min-h-[2.25rem] flex items-center leading-tight">
+                  <div className="mt-4 font-tech text-[10px] sm:text-xs uppercase tracking-wider text-primary min-h-[2.25rem] flex items-center leading-tight">
                     {c.role}
                   </div>
                   <h3 className="mt-1 font-display text-xl sm:text-2xl font-bold uppercase leading-snug min-h-[3.25rem] sm:min-h-[3.75rem] flex items-start break-words">
                     {c.name}
                   </h3>
                 </div>
-                <ul className="mt-4 sm:mt-5 space-y-2 text-xs sm:text-sm text-muted-foreground border-t border-border/30 pt-3">
-                  {c.creds.map((x) => <li key={x} className="flex gap-2 transition-all duration-200 group-hover:translate-x-1"><span className="text-primary">▸</span>{x}</li>)}
-                </ul>
+                <div className="mt-4 border-t border-border/30 pt-3 flex-1 flex flex-col justify-start">
+                  <ul className="space-y-2 text-xs sm:text-sm text-muted-foreground">
+                    {c.creds.map((x) => (
+                      <li key={x} className="flex gap-2 transition-all duration-200 group-hover:translate-x-1">
+                        <span className="text-primary shrink-0">▸</span>
+                        <span>{x}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
