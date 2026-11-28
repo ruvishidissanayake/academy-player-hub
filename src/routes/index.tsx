@@ -604,7 +604,7 @@ function Index() {
           <div className="mt-10 sm:mt-14 flex flex-col gap-4 sm:gap-6">
             {/* Partnership Video */}
             <article className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
-              <video data-lazy data-src={collabVideo.url} poster={collabVideoPoster.url} muted loop playsInline preload="none" className="aspect-video w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <video data-lazy data-src={collabVideo.url} poster={collabVideoPoster.url} muted loop playsInline preload="none" className="aspect-video w-full object-cover transition-transform duration-700 group-hover:scale-105" style={{filter:"contrast(1.08) brightness(1.04) saturate(1.12)",imageRendering:"high-quality"}} />
               <div className="fade-bottom pointer-events-none absolute inset-0" />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 sm:p-6">
                 <div className="font-tech text-xs uppercase tracking-widest text-primary">Partnership day</div>
