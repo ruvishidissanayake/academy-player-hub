@@ -180,8 +180,8 @@ const mission = [
 ];
 
 const coaches = [
-  { img: "/coaches/coach-ranthushka.jpg", role: "Head Coach", name: "Ranthushka Sasindu", creds: ["South Asian Medalist", "Former National Ranked Player", "BWF Coaching Course – Level 1"] },
-  { img: "/coaches/coach-ramesh.jpg", role: "Assistant Coach", name: "Ramesh Chanaka", creds: ["BWF Disability Coaching – Level 1", "BWF Coaching Course – Level 1", "SLB Coaching Course – Level 1"] },
+  { img: "/coaches/coach-ramesh.jpg", role: "Head Coach", name: "Ranthushka Sasindu", creds: ["South Asian Medalist", "Former National Ranked Player", "BWF Coaching Course – Level 1"] },
+  { img: "/coaches/coach-ranthushka.jpg", role: "Assistant Coach", name: "Ramesh Chanaka", creds: ["BWF Disability Coaching – Level 1", "BWF Coaching Course – Level 1", "SLB Coaching Course – Level 1"] },
   { img: "/coaches/coach-shakya.jpg", role: "Assistant Coach & Manager", name: "Shakya Wickramasinghe", creds: ["NISS & SLB Coaching – Level 1", "Former National Player", "Former Sri Lanka University Team"] },
   { img: "/coaches/coach-chamidu.jpg", role: "Assistant Coach", name: "Chamindu Shihara", creds: ["SLB Coaching Course – Level 1", "Junior Development Coach", "RKBA Coaching Team"] },
   { img: "/coaches/coach-shafran.jpg", role: "Assistant Coach", name: "Shafran", creds: ["SLB Coaching Course – Level 1", "Junior Development Coach", "RKBA Coaching Team"] },
@@ -601,10 +601,10 @@ function Index() {
           </div>
 
           {/* Video + Photo showcase */}
-          <div className="mt-10 sm:mt-14 grid gap-4 sm:gap-6 sm:grid-cols-2">
+          <div className="mt-10 sm:mt-14 flex flex-col gap-4 sm:gap-6">
             {/* Partnership Video */}
             <article className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
-              <video data-lazy data-src={collabVideo.url} poster={collabVideoPoster.url} muted loop playsInline preload="none" className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <video data-lazy data-src={collabVideo.url} poster={collabVideoPoster.url} muted loop playsInline preload="none" className="aspect-video w-full object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="fade-bottom pointer-events-none absolute inset-0" />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 sm:p-6">
                 <div className="font-tech text-xs uppercase tracking-widest text-primary">Partnership day</div>
@@ -612,13 +612,13 @@ function Index() {
               </div>
             </article>
 
-            {/* Official Sponsorship Ceremony Photo */}
+            {/* Official Sponsorship Ceremony Photo — full width */}
             <article className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
               <img
                 src="/coaches/collab-partnership-team.jpg"
                 alt="RKBA Official Academy Sponsorship Ceremony with Hundred, Li-Ning and EliteShuttler"
                 loading="lazy"
-                className="aspect-[4/5] w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                className="w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
               />
               <div className="fade-bottom pointer-events-none absolute inset-0" />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 sm:p-6">
