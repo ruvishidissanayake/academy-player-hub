@@ -601,23 +601,29 @@ function Index() {
           </div>
 
           {/* Video + Photo showcase */}
-          <div className="mt-6 grid gap-4 sm:gap-6 sm:grid-cols-2 max-w-4xl">
+          <div className="mt-10 sm:mt-14 grid gap-4 sm:gap-6 sm:grid-cols-2">
+            {/* Partnership Video */}
             <article className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
-              <video data-lazy data-src={collabVideo.url} poster={collabVideoPoster.url} muted loop playsInline preload="none" className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <video data-lazy data-src={collabVideo.url} poster={collabVideoPoster.url} muted loop playsInline preload="none" className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="fade-bottom pointer-events-none absolute inset-0" />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 sm:p-5">
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 sm:p-6">
                 <div className="font-tech text-xs uppercase tracking-widest text-primary">Partnership day</div>
-                <div className="font-tech text-xs sm:text-sm font-semibold uppercase">RKBA × Elite Shuttle</div>
+                <div className="mt-1 font-display text-lg sm:text-xl font-bold uppercase">RKBA × Elite Shuttle</div>
               </div>
             </article>
 
-            {/* Photo showcase slot */}
+            {/* Official Sponsorship Ceremony Photo */}
             <article className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
-              <img src={collab1} alt="RKBA × Elite Shuttle collaboration" loading="lazy" className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+              <img
+                src="/coaches/collab-partnership-team.jpg"
+                alt="RKBA Official Academy Sponsorship Ceremony with Hundred, Li-Ning and EliteShuttler"
+                loading="lazy"
+                className="aspect-[4/5] w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              />
               <div className="fade-bottom pointer-events-none absolute inset-0" />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 sm:p-5">
-                <div className="font-tech text-xs uppercase tracking-widest text-primary">Photo showcase</div>
-                <div className="font-tech text-xs sm:text-sm font-semibold uppercase">RKBA × Elite Shuttle</div>
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 sm:p-6">
+                <div className="font-tech text-xs uppercase tracking-widest text-primary">Official Sponsorship Ceremony</div>
+                <div className="mt-1 font-display text-lg sm:text-xl font-bold uppercase">Hundred · Li-Ning · EliteShuttler</div>
               </div>
             </article>
           </div>
