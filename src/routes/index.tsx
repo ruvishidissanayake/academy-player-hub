@@ -577,8 +577,19 @@ function Index() {
       </section>
 
       {/* Elite Shuttle collaboration */}
-      <section id="collab" className="border-t border-border py-16 sm:py-24 lg:py-28">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <section id="collab" className="border-t border-border py-16 sm:py-24 lg:py-28 relative overflow-hidden">
+        {/* Background — sponsorship ceremony photo, very faded */}
+        <div className="pointer-events-none absolute inset-0 z-0">
+          <img
+            src="/coaches/collab-partnership-team.jpg"
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover object-center"
+            style={{opacity:0.07,filter:"blur(2px) saturate(1.4) brightness(0.9)"}}
+          />
+          <div className="absolute inset-0 bg-background/60" />
+        </div>
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
           <Label n="06">Collaboration</Label>
           <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase">RKBA <span className="text-primary">×</span> Elite Shuttle</h2>
           <p className="mt-4 sm:mt-6 max-w-2xl text-sm sm:text-base text-muted-foreground">A special collaboration between RKBA and Elite Shuttle — joint training sessions, friendly matches, media days and a podcast episode celebrating both academies.</p>
@@ -601,31 +612,14 @@ function Index() {
           </div>
 
           {/* Video + Photo showcase — side by side, video at TikTok 9:16, photo fills same height */}
-          <div className="mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 items-stretch">
-            {/* Partnership Video — TikTok portrait 9:16 */}
-            <article className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
+          {/* Partnership Video — TikTok portrait 9:16, centered */}
+          <div className="mt-10 sm:mt-14 flex justify-center">
+            <article className="hover-card clip-cut group relative overflow-hidden border border-border bg-card w-full max-w-sm">
               <video data-lazy data-src={collabVideo.url} poster={collabVideoPoster.url} muted loop playsInline preload="none" className="aspect-[9/16] w-full object-cover transition-transform duration-700 group-hover:scale-105" style={{filter:"contrast(1.08) brightness(1.04) saturate(1.12)",imageRendering:"high-quality"}} />
               <div className="fade-bottom pointer-events-none absolute inset-0" />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 sm:p-6">
                 <div className="font-tech text-xs uppercase tracking-widest text-primary">Partnership day</div>
                 <div className="mt-1 font-display text-lg sm:text-xl font-bold uppercase">RKBA × Elite Shuttle</div>
-              </div>
-            </article>
-
-            {/* Official Sponsorship Ceremony Photo — matches video height */}
-            <article className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
-              <div className="aspect-[9/16] w-full relative">
-                <img
-                  src="/coaches/collab-partnership-team.jpg"
-                  alt="RKBA Official Academy Sponsorship Ceremony with Hundred, Li-Ning and EliteShuttler"
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              <div className="fade-bottom pointer-events-none absolute inset-0" />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 sm:p-6">
-                <div className="font-tech text-xs uppercase tracking-widest text-primary">Official Sponsorship Ceremony</div>
-                <div className="mt-1 font-display text-lg sm:text-xl font-bold uppercase">Hundred · Li-Ning · EliteShuttler</div>
               </div>
             </article>
           </div>
