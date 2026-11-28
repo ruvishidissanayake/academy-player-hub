@@ -600,11 +600,11 @@ function Index() {
             </div>
           </div>
 
-          {/* Video + Photo showcase */}
-          <div className="mt-10 sm:mt-14 flex flex-col gap-4 sm:gap-6">
-            {/* Partnership Video */}
+          {/* Video + Photo showcase — side by side, video at TikTok 9:16, photo fills same height */}
+          <div className="mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 items-stretch">
+            {/* Partnership Video — TikTok portrait 9:16 */}
             <article className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
-              <video data-lazy data-src={collabVideo.url} poster={collabVideoPoster.url} muted loop playsInline preload="none" className="aspect-video w-full object-cover transition-transform duration-700 group-hover:scale-105" style={{filter:"contrast(1.08) brightness(1.04) saturate(1.12)",imageRendering:"high-quality"}} />
+              <video data-lazy data-src={collabVideo.url} poster={collabVideoPoster.url} muted loop playsInline preload="none" className="aspect-[9/16] w-full object-cover transition-transform duration-700 group-hover:scale-105" style={{filter:"contrast(1.08) brightness(1.04) saturate(1.12)",imageRendering:"high-quality"}} />
               <div className="fade-bottom pointer-events-none absolute inset-0" />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 sm:p-6">
                 <div className="font-tech text-xs uppercase tracking-widest text-primary">Partnership day</div>
@@ -612,14 +612,16 @@ function Index() {
               </div>
             </article>
 
-            {/* Official Sponsorship Ceremony Photo — full width */}
+            {/* Official Sponsorship Ceremony Photo — matches video height */}
             <article className="hover-card clip-cut group relative overflow-hidden border border-border bg-card">
-              <img
-                src="/coaches/collab-partnership-team.jpg"
-                alt="RKBA Official Academy Sponsorship Ceremony with Hundred, Li-Ning and EliteShuttler"
-                loading="lazy"
-                className="w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-              />
+              <div className="aspect-[9/16] w-full relative">
+                <img
+                  src="/coaches/collab-partnership-team.jpg"
+                  alt="RKBA Official Academy Sponsorship Ceremony with Hundred, Li-Ning and EliteShuttler"
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
               <div className="fade-bottom pointer-events-none absolute inset-0" />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 sm:p-6">
                 <div className="font-tech text-xs uppercase tracking-widest text-primary">Official Sponsorship Ceremony</div>
